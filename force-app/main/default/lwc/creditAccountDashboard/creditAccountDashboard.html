@@ -1,0 +1,26 @@
+<template>
+  <div class="dashboard">
+    <div class="dashboard__inner">
+
+
+      <!-- Main: AI Insights + Account Metrics -->
+      <div class="dashboard__main" style={mainGridStyle}>
+        <div class="dashboard__panel dashboard__panel-metrics">
+          <div class="metrics-scroll" if:true={effectiveRecordId}>
+            <div class="metrics-cards">
+              <div class="metrics-card-slot">
+                <c-latest-credit-review-card record-id={effectiveRecordId}></c-latest-credit-review-card>
+              </div>
+              <div class="metrics-card-slot">
+                <c-quick-note-card record-id={effectiveRecordId}></c-quick-note-card>
+              </div>
+            </div>
+          </div>
+          <div class="metrics-empty" if:false={effectiveRecordId}>
+            <p class="metrics-empty__text">{label.openAccountToView}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,22 @@
+<template>
+  <c-metric-card>
+    <span slot="title">{label.communicationDetails}</span>
+    <lightning-icon slot="icon" icon-name="utility:call" size="xx-small" class="card-icon"></lightning-icon>
+    <div class="rows">
+      <template for:each={details} for:item="row">
+        <div key={row.key} class="row">
+          <div class="row-label">
+            <lightning-icon icon-name={row.iconName} size="xx-small" class={row.iconClass}></lightning-icon>
+            <span>{row.label}</span>
+          </div>
+          <template if:true={row.isLink}>
+            <a class="row-value link" href="#" data-record-id={row.recordId} data-object-api-name={row.objectApiName} onclick={handleNavigate}>{row.value}</a>
+          </template>
+          <template if:false={row.isLink}>
+            <span class="row-value">{row.value}</span>
+          </template>
+        </div>
+      </template>
+    </div>
+  </c-metric-card>
+</template>

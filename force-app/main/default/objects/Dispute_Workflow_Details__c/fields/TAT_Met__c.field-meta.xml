@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TAT_Met__c</fullName>
+    <formula>IF(
+    Action_Date__c - DATEVALUE(CreatedDate) &lt;=  Dispute_Workflow_Matrix__r.celsrm__User_SLA_Days__c , 
+    true, 
+    false
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>TAT Met</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

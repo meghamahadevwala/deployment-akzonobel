@@ -1,0 +1,22 @@
+<template>
+  <c-metric-card>
+    <span slot="title">{label.accountInfo}</span>
+    <lightning-icon slot="icon" icon-name="utility:user" size="xx-small" class="card-icon"></lightning-icon>
+    <div class="rows">
+      <template for:each={infoRows} for:item="row">
+        <div key={row.key} class="row">
+          <div class="row-label">
+            <lightning-icon icon-name={row.iconName} size="xx-small" class={row.iconClass}></lightning-icon>
+            <span>{row.label}</span>
+          </div>
+          <template if:true={row.isLink}>
+            <a class="row-value link" href={row.ownerLink} data-link={row.ownerId} onclick={handleRowClick}>{row.value}</a>
+          </template>
+          <template if:false={row.isLink}>
+            <span class="row-value">{row.value}</span>
+          </template>
+        </div>
+      </template>
+    </div>
+  </c-metric-card>
+</template>

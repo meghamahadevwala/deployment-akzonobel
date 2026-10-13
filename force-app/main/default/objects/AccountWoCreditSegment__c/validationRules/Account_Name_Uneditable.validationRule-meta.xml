@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Name_Uneditable</fullName>
+    <active>true</active>
+    <description>Not allowed to change the Account Name.</description>
+    <errorConditionFormula>AND(
+ISCHANGED(Name),
+$Profile.Name &lt;&gt; &quot;System Administrator&quot;
+)</errorConditionFormula>
+    <errorMessage>You are not allowed to change the Account Name.</errorMessage>
+</ValidationRule>

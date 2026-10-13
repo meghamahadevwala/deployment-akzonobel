@@ -1,0 +1,226 @@
+<apex:page renderAs="pdf" contentType="application/pdf; charset=UTF-8"
+           standardController="celsrm__Credit_Review__c"
+           extensions="CreditLimitRequestPdfController"
+           showHeader="false"
+           applyHtmlTag="false"
+           sidebar="false">
+  <html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <style>
+        body {
+          font-family: 'DejaVu Sans', 'Arial Unicode MS', sans-serif;
+          margin: 0.5cm;
+          font-size: 9pt;
+          line-height: 1.4;
+        }
+        h1 {
+          text-align: center;
+          font-size: 14pt;
+          margin-bottom: 0.3cm;
+        }
+        .section {
+          margin-bottom: 0.5cm;
+        }
+        .section-title {
+          font-size: 10pt;
+          font-weight: bold;
+          border-bottom: 1px solid #444;
+          margin-bottom: 0.3cm;
+          padding-bottom: 0.1cm;
+        }
+        .four-col {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        .four-col tr {
+          height: 0.8cm;
+        }
+        .four-col td {
+          vertical-align: middle;
+          padding: 3px 6px;
+        }
+        .col-label {
+          font-weight: bold;
+          width: 20%;
+        }
+        .col-value {
+          width: 30%;
+          text-align: right;
+        }
+        .four-col td:nth-child(4) {
+          padding-left: 1cm;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>Credit Limit Request</h1>
+
+      <div class="section">
+        <div class="section-title">Information</div>
+        <table class="four-col">
+          <tr>
+            <td class="col-label">Credit Score</td>
+            <td class="col-value">{!creditScore.Name}</td>
+            <td class="col-label">Currency</td>
+            <td class="col-value">{!celsrm__Credit_Review__c.CurrencyIsoCode}</td>
+          </tr>
+          <tr>
+            <td class="col-label">Account</td>
+            <td class="col-value">{!celsrm__Credit_Review__c.celsrm__Account__r.Name}</td>
+            <td class="col-label">Moody's Credit Limit</td>
+            <td class="col-value">
+              <apex:outputText value="{0,number,#,##0.00}">
+                <apex:param value="{!celsrm__Credit_Review__c.Moody_s_Credit_Limit__c}" />
+              </apex:outputText>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-label">Credit Review</td>
+            <td class="col-value">{!celsrm__Credit_Review__c.Name}</td>
+            <td class="col-label">Moody's Risk Class</td>
+            <td class="col-value">{!celsrm__Credit_Review__c.celsrm__Risk_Class__c}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Account Information</div>
+        <table class="four-col">
+          <tr>
+            <td class="col-label">Payment Behaviour</td>
+            <td class="col-value">{!celsrm__Credit_Review__c.celsrm__Account__r.celsrm__Payment_Behaviour_Text__c}</td>
+            <td class="col-label">Payment Behaviour Trend</td>
+            <td class="col-value">{!celsrm__Credit_Review__c.celsrm__Account__r.celsrm__Payment_Behaviour_Trend__c}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Moody's Parameters</div>
+        <table class="four-col">
+          <tr>
+            <td class="col-label">BvD ID</td>
+            <td class="col-value">{!celsrm__Credit_Review__c.BvD_ID_Number__c}</td>
+            <td class="col-label">Date of Incorporation</td>
+            <td class="col-value">
+              <apex:outputText value="{0,date,dd/MM/yyyy}">
+                <apex:param value="{!celsrm__Credit_Review__c.Date_of_Incorporation__c}" />
+              </apex:outputText>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-label">MORE Evaluation - Score</td>
+            <td class="col-value">{!celsrm__Credit_Review__c.MORE_Evaluation_Score__c}</td>
+            <td class="col-label">MORE Credit Limit</td>
+            <td class="col-value">
+              <apex:outputText value="{0,number,#,##0.00}">
+                <apex:param value="{!celsrm__Credit_Review__c.MORE_Credit_Limit__c}" />
+              </apex:outputText>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-label">MORE Evaluation - Year</td>
+            <td class="col-value">
+              <apex:outputText value="{0,date,dd/MM/yyyy}">
+                <apex:param value="{!celsrm__Credit_Review__c.MORE_Evaluation_Year__c}" />
+              </apex:outputText>
+            </td>
+            <td class="col-label">MORE Evaluation - Probability of Default</td>
+            <td class="col-value">
+              <apex:outputText value="{0,number,#,##0.00}">
+                <apex:param value="{!celsrm__Credit_Review__c.MORE_Evaluation_Probability_of_Default__c}" />
+              </apex:outputText>%
+            </td>
+          </tr>
+          <tr>
+            <td class="col-label">MORE Evaluation - Confidence Level (%)</td>
+            <td class="col-value">
+              <apex:outputText value="{0,number,#,##0.00}">
+                <apex:param value="{!celsrm__Credit_Review__c.MORE_Evaluation_Confidence_Level__c}" />
+              </apex:outputText>%
+            </td>
+            <td class="col-label">Reactive MORE Score</td>
+            <td class="col-value">{!celsrm__Credit_Review__c.Reactive_Score__c}</td>
+          </tr>
+          <tr>
+            <td class="col-label">Reactive MORE Credit Limit</td>
+            <td class="col-value">
+              <apex:outputText value="{0,number,#,##0.00}">
+                <apex:param value="{!celsrm__Credit_Review__c.Reactive_Credit_Limit__c}" />
+              </apex:outputText>
+            </td>
+            <td class="col-label">Reactive MORE Date</td>
+            <td class="col-value">
+              <apex:outputText value="{0,date,dd/MM/yyyy}">
+                <apex:param value="{!celsrm__Credit_Review__c.Reactive_Date__c}" />
+              </apex:outputText>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-label">Reactive MORE Probability of Default</td>
+            <td class="col-value">
+              <apex:outputText value="{0,number,#,##0.00}">
+                <apex:param value="{!celsrm__Credit_Review__c.Reactive_Probability_of_Default__c}" />
+              </apex:outputText>%
+            </td>
+            <td class="col-label">Reactive MORE Confidence Level (%)</td>
+            <td class="col-value">
+              <apex:outputText value="{0,number,#,##0.00}">
+                <apex:param value="{!celsrm__Credit_Review__c.Reactive_Confidence_Level__c}" />
+              </apex:outputText>%
+            </td>
+          </tr>
+          <tr>
+            <td class="col-label">Qualitative Score</td>
+            <td class="col-value">{!celsrm__Credit_Review__c.Qualitative_Score__c}</td>
+            <td class="col-label">Qualitative Credit Limit</td>
+            <td class="col-value">
+              <apex:outputText value="{0,number,#,##0.00}">
+                <apex:param value="{!celsrm__Credit_Review__c.Qualitative_Credit_Limit__c}" />
+              </apex:outputText>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-label">Qualitative Date</td>
+            <td class="col-value">
+              <apex:outputText value="{0,date,dd/MM/yyyy}">
+                <apex:param value="{!celsrm__Credit_Review__c.Qualitative_Score_Date__c}" />
+              </apex:outputText>
+            </td>
+            <td class="col-label">Qualitative Confidence Level (%)</td>
+            <td class="col-value">
+              <apex:outputText value="{0,number,#,##0.00}">
+                <apex:param value="{!celsrm__Credit_Review__c.Qualitative_score_Confidence_level__c}" />
+              </apex:outputText>%
+            </td>
+          </tr>
+          <tr>
+            <td class="col-label">Current Ratio</td>
+            <td class="col-value">
+              <apex:outputText value="{0,number,#,##0.00}">
+                <apex:param value="{!celsrm__Credit_Review__c.Current_Ratio__c}" />
+              </apex:outputText>
+            </td>
+            <td class="col-label">Liquidity Ratio</td>
+            <td class="col-value">
+              <apex:outputText value="{0,number,#,##0.00}">
+                <apex:param value="{!celsrm__Credit_Review__c.Liquidity_Ratio__c}" />
+              </apex:outputText>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-label">Registered Capital</td>
+            <td class="col-value">
+              <apex:outputText value="{0,number,#,##0.00}">
+                <apex:param value="{!celsrm__Credit_Review__c.Registered_Capital__c}" />
+              </apex:outputText>
+            </td>
+            <td class="col-label"></td>
+            <td class="col-value"></td>
+          </tr>
+        </table>
+      </div>
+    </body>
+  </html>
+</apex:page>

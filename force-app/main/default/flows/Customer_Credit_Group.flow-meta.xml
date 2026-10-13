@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <environments>Default</environments>
+    <interviewLabel>Customer Credit Group {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Customer Credit Group</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Records_Dunning_Procedure_Dunning_Block_Statement_Indicator</name>
+        <label>Records-Dunning Procedure,Dunning Block,Statement Indicator</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dunning_Block__c</field>
+            <value>
+                <stringValue>E</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Dunning_Procedure__c</field>
+            <value>
+                <stringValue>Y002</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Statement_Indicator__c</field>
+            <value>
+                <stringValue>1</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Records_Dunning_Procedure_Dunning_Block_Statement_Indicator</targetReference>
+        </connector>
+        <filterLogic>10 AND (1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9)</filterLogic>
+        <filters>
+            <field>Customer_Credit_Group__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0015 - OS - (Online) Stores</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Customer_Credit_Group__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0016 - CAD - Cadex</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>celsrm__App_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Collection</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>celsrm__Credit_Group__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0007 - IC - Intercompany</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>celsrm__Credit_Group__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0008 - INAC - Inactive Customer</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>celsrm__Credit_Group__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0009 - RPDL - RPDL</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>celsrm__Credit_Group__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0010 - AGY - Agency/Lawyer</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>celsrm__Credit_Group__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0011 - ATR - Atradius</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>celsrm__Credit_Group__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0012 - WRT - Write Off</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>celsrm__Credit_Group__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0013 - BKR - Bankruptcy</stringValue>
+            </value>
+        </filters>
+        <object>Account</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>

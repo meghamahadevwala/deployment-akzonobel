@@ -1,0 +1,390 @@
+<template>
+  <template lwc:if={isOpen}>
+    <div class="modal-backdrop" onclick={handleBackdropClick}>
+      <div class="modal-container" onclick={handleContentClick}>
+        <header class="modal-header modal-header-sky">
+          <div class="modal-header__left">
+            <div class="modal-header__icon">
+              <lightning-icon icon-name="utility:record" size="small"></lightning-icon>
+            </div>
+            <div>
+              <h2 class="modal-header__title">{label.dunningStrategyDiagnosisTitle}</h2>
+              <p class="modal-header__subtitle">{label.aiPoweredCollectionStrategyAnalysis}</p>
+            </div>
+          </div>
+          <button type="button" class="modal-close" onclick={handleClose} aria-label="Close">
+            <lightning-icon icon-name="utility:close" size="medium"></lightning-icon>
+          </button>
+        </header>
+
+        <!-- <div class="modal-infobar">
+          <div class="modal-infobar__left">
+            <lightning-icon icon-name="utility:clock" size="xx-small" class="modal-infobar__icon"></lightning-icon>
+            <span class="modal-infobar__label">{label.lastUpdated}</span>
+            <span class="modal-infobar__value">{relativeTimeLabel}</span>
+          </div>
+          <button type="button" class="modal-infobar__refresh-btn" onclick={handleRefresh} title={refreshTitle} disabled={isRefreshDisabled}>
+            <lightning-icon icon-name="utility:refresh" size="xx-small" class={refreshIconClass}></lightning-icon>
+            <span class="modal-infobar__refresh-text">{label.refresh}</span>
+          </button>
+        </div> -->
+
+        <template lwc:if={calculationInProgress}>
+          <div class="modal-calculation-banner" role="status">
+            <lightning-icon icon-name="utility:info" size="x-small" class="modal-calculation-banner__icon"></lightning-icon>
+            <span class="modal-calculation-banner__text">{label.recalcBanner}</span>
+          </div>
+        </template>
+
+        <div class="modal-body">
+
+          <!-- Skeleton loading state -->
+          <template lwc:if={isLoading}>
+            <div class="skeleton-wrap">
+              <div class="kpi-strip">
+                <div class="kpi-card skeleton-card">
+                  <div class="skeleton-line skeleton-line--sm"></div>
+                  <div class="skeleton-line skeleton-line--lg"></div>
+                  <div class="skeleton-line skeleton-line--md"></div>
+                </div>
+                <div class="kpi-card skeleton-card">
+                  <div class="skeleton-line skeleton-line--sm"></div>
+                  <div class="skeleton-line skeleton-line--lg"></div>
+                </div>
+                <div class="kpi-card skeleton-card">
+                  <div class="skeleton-line skeleton-line--sm"></div>
+                  <div class="skeleton-line skeleton-line--lg"></div>
+                </div>
+              </div>
+              <div class="skeleton-grid">
+                <div class="skeleton-col">
+                  <div class="skeleton-line skeleton-line--sm"></div>
+                  <div class="skeleton-block"></div>
+                  <div class="skeleton-block skeleton-block--tall"></div>
+                  <div class="skeleton-block"></div>
+                </div>
+                <div class="skeleton-col">
+                  <div class="skeleton-line skeleton-line--sm"></div>
+                  <div class="skeleton-block"></div>
+                  <div class="skeleton-block skeleton-block--tall"></div>
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <!-- Loaded content -->
+          <template lwc:if={isDataReady}>
+          <div class="kpi-strip">
+            <div class="kpi-card">
+              <div class="kpi-card__head">
+                <div class="kpi-card__icon-wrap kpi-card__icon-blue">
+                  <lightning-icon icon-name="utility:trending" size="xx-small"></lightning-icon>
+                </div>
+                <span class={kpiCycleTitleClass}>{kpiCycleTitle}</span>
+                <lightning-helptext content={label.paymentCycleHelptext} class="kpi-card__info"></lightning-helptext>
+              </div>
+              <ul class="kpi-card__list">
+                <template for:each={kpiPaymentCycles} for:item="cycle">
+                  <li key={cycle}>{cycle}</li>
+                </template>
+              </ul>
+            </div>
+
+            <!-- <div class="kpi-card">
+              <div class="kpi-card__head">
+                <div class="kpi-card__icon-wrap kpi-card__icon-green">
+                  <lightning-icon icon-name="utility:event" size="xx-small"></lightning-icon>
+                </div>
+                <span class="kpi-card__label">Predicted Payment Date</span>
+                <lightning-helptext content="Predicted date of the next payment, forecasted using a machine-learning model. A combination of historical payment cycle data and current account-level invoice metrics (e.g., DPD, open amount) are considered for accurately identifying future payment date." class="kpi-card__info"></lightning-helptext>
+              </div>
+              <p class="kpi-card__value">{kpiPredictedPayment}</p>
+            </div> -->
+
+            <div class="kpi-card">
+              <div class="kpi-card__head">
+                <div class="kpi-card__icon-wrap kpi-card__icon-amber">
+                  <lightning-icon icon-name="utility:clock" size="xx-small"></lightning-icon>
+                </div>
+                <span class="kpi-card__label">{label.averageDaysPastDue}</span>
+                <lightning-helptext content={label.averageDPDHelptext} class="kpi-card__info"></lightning-helptext>
+              </div>
+              <p class="kpi-card__value">{kpiDpd}</p>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-card__head">
+                <div class="kpi-card__icon-wrap kpi-card__icon-purple">
+                  <lightning-icon icon-name="utility:company" size="xx-small"></lightning-icon>
+                </div>
+                <span class="kpi-card__label">{label.businessScale}</span>
+                <lightning-helptext content={label.businessScaleHelptext} class="kpi-card__info"></lightning-helptext>
+              </div>
+              <p class="kpi-card__value">{kpiBusinessSizeDisplay}</p>
+            </div>
+          </div>
+
+          <div class={strategyGridClass}>
+            <template lwc:if={showDunningEfficiency}>
+            <div class={standardColumnClass}>
+              <div class="strategy-col__header strategy-col__header-standard eff-header">
+                <h3 class="strategy-col__title">{label.dunningAnalysis}</h3>
+                <div class="eff-seg">
+                  <template for:each={efficiencyTabs} for:item="tab">
+                    <button
+                      key={tab.key}
+                      class={tab.className}
+                      data-tab={tab.key}
+                      onclick={handleEfficiencyTabChange}
+                    >{tab.label}</button>
+                  </template>
+                </div>
+              </div>
+              <div class="strategy-col__body">
+
+                <!-- Overall Efficiency -->
+                <template lwc:if={isOverallTab}>
+                  <!-- <template if:true={standardReminderFrequency}>
+                    <div class="strategy-meta">
+                      <div class="strategy-meta-row">
+                        <span class="strategy-meta-label">{label.dunningFrequency}</span>
+                        <span class="strategy-meta-value">{standardReminderFrequency}</span>
+                      </div>
+                    </div>
+                  </template> -->
+                  <template if:true={hasDeiInsight}>
+                    <div class={deiAlertClass}>
+                      <lightning-icon icon-name={deiIconName} size="small" class={deiIconClass}></lightning-icon>
+                      <div>
+                        <p class="alert-box__title">{deiTag}</p>
+                        <p class="alert-box__text">{deiDescription}</p>
+                      </div>
+                    </div>
+                  </template>
+                  <template for:each={standardIssues} for:item="issue">
+                    <div key={issue.key} class={issue.boxClass}>
+                      <lightning-icon icon-name={issue.iconName} size="small" class={issue.iconClass}></lightning-icon>
+                      <div>
+                        <h4 class="issue-box__title">{issue.title}</h4>
+                        <p class="issue-box__text">{issue.description}</p>
+                      </div>
+                    </div>
+                  </template>
+                </template>
+
+                <!-- AI Dunning Efficiency -->
+                <template lwc:if={isAiDunningTab}>
+                  <template if:true={hasAiEfficiencyData}>
+                    <!-- <template if:true={standardReminderFrequency}>
+                      <div class="strategy-meta">
+                        <div class="strategy-meta-row">
+                          <span class="strategy-meta-label">{label.dunningFrequency}</span>
+                          <span class="strategy-meta-value">{standardReminderFrequency}</span>
+                        </div>
+                      </div>
+                    </template> -->
+                    <template if:true={hasAiDeiInsight}>
+                      <div class={aiDeiAlertClass}>
+                        <lightning-icon icon-name={aiDeiIconName} size="small" class={aiDeiIconClass}></lightning-icon>
+                        <div>
+                          <p class="alert-box__title">{aiDeiTag}</p>
+                          <p class="alert-box__text">{aiDeiDescription}</p>
+                        </div>
+                      </div>
+                    </template>
+                    <template for:each={aiDunningIssues} for:item="issue">
+                      <div key={issue.key} class={issue.boxClass}>
+                        <lightning-icon icon-name={issue.iconName} size="small" class={issue.iconClass}></lightning-icon>
+                        <div>
+                          <h4 class="issue-box__title">{issue.title}</h4>
+                          <p class="issue-box__text">{issue.description}</p>
+                        </div>
+                      </div>
+                    </template>
+                  </template>
+                  <template if:false={hasAiEfficiencyData}>
+                    <div class="efficiency-empty-state">
+                      <lightning-icon icon-name="utility:info" size="small" class="icon-muted"></lightning-icon>
+                      <p class="efficiency-empty-state__text">{label.aiDunningEfficiencyEmpty}</p>
+                    </div>
+                  </template>
+                </template>
+
+                <!-- Standard Rule Efficiency -->
+                <template lwc:if={isStandardRuleTab}>
+                  <template if:true={hasStandardEfficiencyData}>
+                    <!-- <template if:true={standardReminderFrequency}>
+                      <div class="strategy-meta">
+                        <div class="strategy-meta-row">
+                          <span class="strategy-meta-label">{label.dunningFrequency}</span>
+                          <span class="strategy-meta-value">{standardReminderFrequency}</span>
+                        </div>
+                      </div>
+                    </template> -->
+                    <template if:true={hasStdDeiInsight}>
+                      <div class={stdDeiAlertClass}>
+                        <lightning-icon icon-name={stdDeiIconName} size="small" class={stdDeiIconClass}></lightning-icon>
+                        <div>
+                          <p class="alert-box__title">{stdDeiTag}</p>
+                          <p class="alert-box__text">{stdDeiDescription}</p>
+                        </div>
+                      </div>
+                    </template>
+                    <template for:each={standardRuleIssues} for:item="issue">
+                      <div key={issue.key} class={issue.boxClass}>
+                        <lightning-icon icon-name={issue.iconName} size="small" class={issue.iconClass}></lightning-icon>
+                        <div>
+                          <h4 class="issue-box__title">{issue.title}</h4>
+                          <p class="issue-box__text">{issue.description}</p>
+                        </div>
+                      </div>
+                    </template>
+                  </template>
+                  <template if:false={hasStandardEfficiencyData}>
+                    <div class="efficiency-empty-state">
+                      <lightning-icon icon-name="utility:info" size="small" class="icon-muted"></lightning-icon>
+                      <p class="efficiency-empty-state__text">{label.standardRuleEfficiencyEmpty}</p>
+                    </div>
+                  </template>
+                </template>
+
+              </div>
+            </div>
+            </template>
+
+            <template lwc:if={showAIRecommended}>
+            <div class={aiColumnClass}>
+              <div class="strategy-col__header strategy-col__header-ai">
+                <div class="strategy-col__title-wrap">
+                  <h3 class="strategy-col__title">{label.aiRecommendedStrategy}</h3>
+                  <lightning-helptext
+                    icon-name="utility:info"
+                    content={label.aiRecommendedStrategyHelptext}
+                    class="strategy-col__helptext">
+                  </lightning-helptext>
+                  <template lwc:if={formattedAiEnabledDate}>
+                    <span class="ai-enabled-subtitle">Enabled on {formattedAiEnabledDate}</span>
+                  </template>
+                </div>
+                <lightning-input
+                  type="toggle"
+                  checked={isAiSelected}
+                  onchange={handleSelectAi}
+                  class="ai-toggle"
+                  message-toggle-active=""
+                  message-toggle-inactive=""
+                  label=""
+                  variant="label-hidden"
+                ></lightning-input>
+              </div>
+              <div class="strategy-col__body">
+                <template lwc:if={showBenefitPoints}>
+                  <div class="benefit-box">
+                    <lightning-icon icon-name="utility:success" size="small" class="icon-blue"></lightning-icon>
+                    <div>
+                      <h4 class="benefit-box__title">{benefit1Title}</h4>
+                      <p class="benefit-box__text">{benefit1Point}</p>
+                    </div>
+                  </div>
+                </template>
+                <!-- Risk of Overdue Invoices bar hidden temporarily -->
+                <!-- <template if:true={recommendedStrategy.overdueRisk}>
+                  <div class={riskBoxClass}>
+                    <div class="risk-box__head">
+                      <span class="risk-box__label">{label.riskOfOverdueInvoices}</span>
+                      <span class={riskValueClass}>{recommendedStrategy.overdueRisk}</span>
+                    </div>
+                    <div class={riskBarTrackClass}>
+                      <div class={riskBarFillClass} style={recommendedRiskBarStyle}></div>
+                    </div>
+                  </div>
+                </template> -->
+                <!-- <div class="perf-box">
+                  <div class="perf-box__head">
+                    <lightning-icon icon-name="utility:trending" size="small"></lightning-icon>
+                    <p class="perf-box__title">Expected Performance Improvement</p>
+                  </div>
+                  <div class="perf-box__grid">
+                    <div class="perf-box__item">
+                      <p class="perf-box__number">87%</p>
+                      <p class="perf-box__label">Efficiency</p>
+                    </div>
+                    <div class="perf-box__item">
+                      <p class="perf-box__number">-12</p>
+                      <p class="perf-box__label">Days DSO</p>
+                    </div>
+                    <div class="perf-box__item">
+                      <p class="perf-box__number">+45%</p>
+                      <p class="perf-box__label">Response Rate</p>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+            </template>
+          </div>
+
+          <!-- <div class="trend-section">
+            <div class="trend-card">
+              <div class="trend-card__header">
+                <h3 class="trend-card__title">Dunning Insights Trend Analysis</h3>
+                <p class="trend-card__subtitle">Month-over-Month Performance (Last 6 Months)</p>
+              </div>
+              <div class="trend-card__body">
+                <table class="trend-table">
+                  <thead>
+                    <tr>
+                      <th>Month</th>
+                      <th>Dunning Freq (days)</th>
+                      <th>DSO (days)</th>
+                      <th>Recommended Freq (days)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <template for:each={trendData} for:item="row">
+                      <tr key={row.key}>
+                        <td>{row.month}</td>
+                        <td>{row.dunningFreq}</td>
+                        <td>{row.dso}</td>
+                        <td>{row.recommendedFreq}</td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="trend-card">
+              <div class="trend-card__header">
+                <h3 class="trend-card__title">Recommendation Trends Analysis</h3>
+                <p class="trend-card__subtitle">AI Recommendations per Month (Last 6 Months)</p>
+              </div>
+              <div class="trend-card__body">
+                <table class="trend-table">
+                  <thead>
+                    <tr>
+                      <th>Month</th>
+                      <th>Strategy</th>
+                      <th>Risk Reduction %</th>
+                      <th>Recommended Freq (days)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <template for:each={recommendationTrendData} for:item="row">
+                      <tr key={row.key}>
+                        <td>{row.month}</td>
+                        <td><span class="strategy-badge">{row.strategy}</span></td>
+                        <td>{row.riskReduction}%</td>
+                        <td>{row.recommendedFreq}</td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> -->
+          </template>
+        </div>
+      </div>
+    </div>
+  </template>
+</template>

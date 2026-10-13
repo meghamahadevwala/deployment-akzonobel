@@ -1,0 +1,95 @@
+<template>
+  <template lwc:if={isCardVisible}>
+  <div class="insight-card insight-card-amber">
+    <div class="insight-card__header">
+      <div class="insight-card__icon-wrap">
+        <lightning-icon icon-name="utility:record" size="xx-small"></lightning-icon>
+      </div>
+      <div class="insight-card__title-wrap">
+        <!-- <span class="insight-card__tag">Strategy</span> -->
+        <h4 class="insight-card__title">{label.dunningInsights}</h4>
+      </div>
+      <button type="button" class="know-more-btn-top" onclick={handleKnowMore}>{label.knowMore} <lightning-icon icon-name="utility:chevronright" size="xx-small"></lightning-icon></button>
+    </div>
+    <template if:true={isLoading}>
+      <div class="insight-card__body">
+        <div class="skeleton-box">
+          <div class="skeleton-row">
+            <div class="sk-circle"></div>
+            <div class="sk-line sk-line--md"></div>
+          </div>
+          <div class="sk-line sk-line--lg"></div>
+          <div class="sk-line sk-line--sm"></div>
+          <div class="sk-bar"></div>
+        </div>
+        <div class="skeleton-box skeleton-box--alt">
+          <div class="skeleton-row">
+            <div class="sk-circle"></div>
+            <div class="sk-line sk-line--md"></div>
+          </div>
+          <div class="sk-line sk-line--lg"></div>
+          <div class="sk-line sk-line--sm"></div>
+        </div>
+      </div>
+    </template>
+    <template if:false={isLoading}>
+      <template if:true={activeStrategyLabel}>
+        <div class="active-strategy">
+          <span class="active-strategy__label">{label.currentlyActive}</span>
+          <span class="active-strategy__badge">{activeStrategyLabel}</span>
+        </div>
+      </template>
+      <div class="insight-card__body">
+        <div class="dunning-content">
+          <template if:true={hasCurrentPerformance}>
+            <div class={dunningBoxClass}>
+              <div class="dunning-box__head">
+                <lightning-icon icon-name="utility:warning" size="xx-small" class="icon-red" if:true={hasPerformanceError}></lightning-icon>
+                <lightning-icon icon-name="utility:success" size="xx-small" class="icon-green" if:false={hasPerformanceError}></lightning-icon>
+                <span class="dunning-box__title" if:true={currentPerformanceTag}>{currentPerformanceTag}</span>
+              </div>
+              <p class="dunning-box__text" if:true={currentPerformanceText}>{currentPerformanceText}</p>
+              <template if:true={hasPerformanceBar}>
+                <div class="dunning-bar-wrap">
+                  <div class={dunningBarClass}>
+                    <div class="dunning-bar-fill" style={barStyle}></div>
+                  </div>
+                  <span class={dunningPctClass}>{displayPct}</span>
+                </div>
+              </template>
+            </div>
+          </template>
+          <template if:true={hasRecommendedSection}>
+            <div class="dunning-box dunning-box-blue">
+              <div class="dunning-box__head">
+                <lightning-icon icon-name="utility:trending" size="xx-small" class="icon-blue"></lightning-icon>
+                <span class="dunning-box__title">{label.aiRecommended}</span>
+              </div>
+              <div class="dunning-meta">
+                <template if:true={recommendedStrategyText}>
+                  <div class="dunning-meta-row">
+                    <span class="dunning-meta-label">{label.strategy}</span>
+                    <span class="dunning-meta-value">{recommendedStrategyText}</span>
+                  </div>
+                </template>
+                <template if:true={recommendedFrequency}>
+                  <div class="dunning-meta-row">
+                    <span class="dunning-meta-label">{label.frequency}</span>
+                    <span class="dunning-meta-value">{recommendedFrequency}</span>
+                  </div>
+                </template>
+                <template if:true={recommendedRisk}>
+                  <div class="dunning-meta-row">
+                    <span class="dunning-meta-label">{label.riskReduction}</span>
+                    <span class="dunning-meta-value dunning-meta-value-green">{recommendedRisk}</span>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+  </div>
+  </template>
+</template>

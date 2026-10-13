@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Update_Account_Risk_Class_And_Check_Rule_Action_1</name>
+        <label>Update Account Risk Class And Check Rule With Moodys</label>
+        <locationX>314</locationX>
+        <locationY>647</locationY>
+        <actionName>RiskClassCheckRuleMappingService</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>acc</name>
+            <value>
+                <elementReference>$Record</elementReference>
+                <inputConfiguratorMode>Resource</inputConfiguratorMode>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>accountRiskClass</name>
+            <value>
+                <elementReference>$Record.Moody_s_Risk_Class__c</elementReference>
+                <inputConfiguratorMode>Resource</inputConfiguratorMode>
+            </value>
+        </inputParameters>
+        <nameSegment>RiskClassCheckRuleMappingService</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>63.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Moody_s_Info_Available</name>
+        <label>Moody&apos;s Info. Available</label>
+        <locationX>446</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Copy_6_of_Update_Risk_Class_and_Check_Rule</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Moody_s_Risk_Class__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_5_of_Update_Risk_Class_and_Check_Rule</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Risk_Class_Group</name>
+        <label>Risk Class Group</label>
+        <locationX>1502</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Child</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ParentId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_7_of_Update_Risk_Class_and_Check_Rule</targetReference>
+            </connector>
+            <label>Child</label>
+        </rules>
+        <rules>
+            <name>Key_Account</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0002 - Key - Key Account</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Moody_s_Info_Available</targetReference>
+            </connector>
+            <label>Key Account</label>
+        </rules>
+        <rules>
+            <name>Intercompany</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0007 - IC - Intercompany</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Risk_Class_and_Check_Rule_Intercompany</targetReference>
+            </connector>
+            <label>Intercompany</label>
+        </rules>
+        <rules>
+            <name>Payment_Plan</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0006 - PP - Payment Plan</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Risk_Class_and_Check_Rule_Prepayment</targetReference>
+            </connector>
+            <label>Payment Plan</label>
+        </rules>
+        <rules>
+            <name>Inactive_Customer</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0008 - INAC - Inactive Customer</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Risk_Class_and_Check_Rule_Inactive</targetReference>
+            </connector>
+            <label>Inactive Customer</label>
+        </rules>
+        <rules>
+            <name>Legal</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0009 - RPDL - RPDL</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0010 - AGY - Agency/Lawyer</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0011 - ATR - Atradius</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0012 - WRT - Write Off</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0013 - BKR - Bankruptcy</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0004 - ALA - Legal Action</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0016 - CAD - Cadex</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Risk_Class_and_Check_Rule_Legal</targetReference>
+            </connector>
+            <label>Legal</label>
+        </rules>
+        <rules>
+            <name>North_Asia</name>
+            <conditionLogic>1 AND ( 2 OR 3 OR 4 )</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Region__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>North Asia</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0000 -</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Records_23</targetReference>
+            </connector>
+            <label>North Asia</label>
+        </rules>
+        <rules>
+            <name>Prepay_CreditCard</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014 - PCC - Pre-pay/Credit Card</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Risk_Class_and_Check_Rule_Prepay</targetReference>
+            </connector>
+            <label>Prepay/Credit Card</label>
+        </rules>
+        <rules>
+            <name>Employee</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0005 - EMP - Employee</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Records_10</targetReference>
+            </connector>
+            <label>Employee</label>
+        </rules>
+        <rules>
+            <name>Online_Store</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0015 - OS - (Online) Stores</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Records_11</targetReference>
+            </connector>
+            <label>Online Store</label>
+        </rules>
+    </decisions>
+    <description>Add Update Risk Class on Key Accounts</description>
+    <environments>Default</environments>
+    <interviewLabel>Risk Class and {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Risk Class and Check Rule 1</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Copy_5_of_Update_Risk_Class_and_Check_Rule</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
+        <connector>
+            <targetReference>Update_Account_Risk_Class_And_Check_Rule_Action_1</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z07 Risk Class Key Account</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_6_of_Update_Risk_Class_and_Check_Rule</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>578</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z07 Risk Class Key Account</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>4 - Medium Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_7_of_Update_Risk_Class_and_Check_Rule</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z08 Risk Class Child</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <elementReference>$Record.Parent.celsrm__Risk_Class__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Records_10</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>2426</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z03 Risk Class Low</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>3 - Low Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Records_11</name>
+        <label>Update Records 11</label>
+        <locationX>2690</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z10 Risk Class (Online) Stores</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>7 - (Online) Stores</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Records_23</name>
+        <label>Update Credit Group</label>
+        <locationX>1898</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z09 Direct Block</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Credit_Group__c</field>
+            <value>
+                <stringValue>0014 - PCC - Pre-pay/Credit Card</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>5 - High Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Risk_Class_and_Check_Rule_Inactive</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>1370</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z06 Risk Class Full Credit Block</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>6 - Full Credit Block</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Risk_Class_and_Check_Rule_Intercompany</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>842</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z02 Risk Class Intercompany</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>2 - Intercompany</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Risk_Class_and_Check_Rule_Legal</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>1634</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z06 Risk Class Full Credit Block</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>6 - Full Credit Block</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Risk_Class_and_Check_Rule_Prepay</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>2162</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z09 Direct Block</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>5 - High Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Risk_Class_and_Check_Rule_Prepayment</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>1106</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z09 Direct Block</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>1376</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Risk_Class_Group</targetReference>
+        </connector>
+        <filterLogic>(( 1 AND 6 ) AND ( 2 OR 3 OR 4 OR 5 )) OR (NOT(6) AND 7)</filterLogic>
+        <filters>
+            <field>celsrm__App_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Credit</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>celsrm__Credit_Group__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>celsrm__Credit_Group__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>celsrm__Credit_Group__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ParentId</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>celsrm__Credit_Group__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>0003 - RCA - Regular Credit Account</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ParentId</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Account</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

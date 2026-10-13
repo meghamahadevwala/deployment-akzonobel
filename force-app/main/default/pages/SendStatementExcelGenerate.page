@@ -1,0 +1,36 @@
+<apex:page controller="SendStatementExcelGenerateController" showHeader="false"
+    sidebar="false" 
+    contentType="application/vnd.ms-excel"
+    cache="true" expires="1"  standardStylesheets="false">
+    <html xmlns:x="urn:schemas-microsoft-com:office:excel">
+
+        <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+            <style type="text/css" media="print"> 
+                @page {
+                    /* Landscape orientation */
+                    size:'{!JSENCODE($Setup.celsrm__SRM_Configuration__c.celsrm__Statement_Mode__c)}';             
+                    font-family: Arial Unicode MS;
+                    font-size:10px;
+                    
+                    @top-right {
+                    content: " Page : " counter(page) " of " counter(pages);
+                    }
+                }
+                
+                body{                 
+                    font-family: Arial Unicode MS;
+                    font-size:10px;
+                }
+            </style>
+        </head>
+
+        <body>
+            <center>
+                <apex:outputText escape="false" value="{!tableBody}" style="font-size:13px; font-family: Arial Unicode MS !important;" />
+            </center>
+        </body>
+
+    </html>
+
+</apex:page>

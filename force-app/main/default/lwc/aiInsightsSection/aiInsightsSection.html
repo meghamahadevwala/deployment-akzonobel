@@ -1,0 +1,26 @@
+<template>
+  <div class="ai-insights">
+    <div class="ai-insights__header">
+      <div class="ai-insights__title-row">
+        <div class="ai-insights__icon-wrap">
+          <lightning-icon icon-name="standard:sparkles" size="xx-small"></lightning-icon>
+        </div>
+        <h2 class="ai-insights__title">{label.aiInsights} <span class="ai-insights__subtitle-inline">{label.poweredByCelonis}</span></h2>
+      </div>
+    </div>
+    <div class="ai-insights__scroll">
+      <div class="ai-insights__cards">
+        <c-dunning-insights-card
+          if:true={showDunningCard}
+          record-id={recordId}
+          onknowmore={handleDunningKnowMore}
+        ></c-dunning-insights-card>
+        <c-payment-prediction-card
+          if:true={showPaymentPredictionCard}
+          record-id={recordId}
+          onknowmore={handlePaymentKnowMore}
+        ></c-payment-prediction-card>
+      </div>
+    </div>
+  </div>
+</template>

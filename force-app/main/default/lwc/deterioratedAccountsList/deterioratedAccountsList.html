@@ -1,0 +1,30 @@
+<template>
+    <lightning-card title="Accounts with Credit Score Deterioration" icon-name="standard:account">
+        <span slot="actions" class="slds-badge slds-badge_lightest">
+            {accountCount} accounts
+        </span>
+
+        <template if:true={hasAccounts}>
+            <lightning-datatable
+                key-field="accountId"
+                data={accounts}
+                columns={columns}
+                hide-checkbox-column
+            ></lightning-datatable>
+        </template>
+
+        <template if:false={hasAccounts}>
+            <template if:false={hasError}>
+                <p class="slds-p-around_medium slds-text-color_weak">
+                    No accounts currently show credit score deterioration.
+                </p>
+            </template>
+        </template>
+
+        <template if:true={hasError}>
+            <p class="slds-p-around_medium slds-text-color_error">
+                Error loading accounts: {errorMessage}
+            </p>
+        </template>
+    </lightning-card>
+</template>

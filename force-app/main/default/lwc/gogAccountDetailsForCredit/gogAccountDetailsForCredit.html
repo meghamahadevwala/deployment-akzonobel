@@ -1,0 +1,519 @@
+<template>
+   <div class="top_margin">
+      <span class="hilightpanel_arrow" title="Click here to open this section" if:false={isHighlightPanel}
+         onclick={showHighlightPanel}>
+         <img height="4" width="9" style="position: absolute;"
+            src="data:image/png;base64,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" />
+      </span>
+      <lightning-layout class="fullcomp" if:true={isHighlightPanel}>
+         <span style="display: none;">{riskPercentage}</span>
+         <span style="display: none;">{avgRiskPromise}</span>
+         <span style="display: none;">{avgRiskDispute}</span>
+         <!-- <div class="waterfall-chart-container">
+            <svg class="chart"></svg>
+        </div> -->
+         <span style="display: none;">{chartData}></span>
+         <lightning-layout-item size={accountDetailDivSize} class="paddingsmall slds-border_right"
+            small-device-size={accountDetailDivSize} medium-device-size={accountDetailDivSize}
+            large-device-size={accountDetailDivSize}>
+            <div class="header__content">
+               <!--<label class="header__title_new">Account Details</label> -->
+               <div class="subContent-padding">
+                  <lightning-layout>
+                     <lightning-layout-item size={accountRiskDivSize} class="paddingsmall"
+                        small-device-size={accountRiskDivSize} medium-device-size={accountRiskDivSize}
+                        large-device-size={accountRiskDivSize}>
+                        <lightning-layout>
+                           <lightning-layout-item size="11" class="paddingsmall" small-device-size=11
+                              medium-device-size=11 large-device-size=11>
+                              <span
+                                 style="padding-top: 8px; font-family: Arial;  font-size: 12px;  font-weight: bold;  font-stretch: normal;  font-style: normal;  line-height: normal;  letter-spacing: normal;  color: #003c4d;"
+                                 class="">{label.Risk_Score}
+                              </span>
+                              <div
+                                 style="padding-top: 11px;   font-family: Arial;  font-size: 32px;  font-weight: bold;  font-stretch: normal;  font-style: normal;  line-height: normal;  letter-spacing: normal;"
+                                 class={accountRiskColorClass}>
+                                 <!-- {disputeRisk}%
+                                  {accountRisk} -->
+                                 {riskPercent}%
+                              </div>
+                              <div class="subContent-padding subcontent__txt_style">
+                                 <!-- <p>
+                                         <label>Invoice Risk: </label><span class={avgTXRiskColorClass}>{invoiceRiskPer}%</span>
+                                     </p>
+             
+                                     <p>
+                                         <label>Dispute Risk: <span class={avgDisputeRiskColorClass}>{disputeRiskPer}%</span>
+                                         </label>
+                                     </p> -->
+                                 <div>
+                                    <label>{label.Credit_Utilization}: </label>
+                                    <p class="CreditUtilization"><span style="display: none;">{CreditUtilization}</span>
+                                    </p>
+                                 </div>
+                              </div>
+                           </lightning-layout-item>
+                           <lightning-layout-item size="1" class="paddingsmall" small-device-size=1 medium-device-size=1
+                              large-device-size=1 alignment-bump="bottom" if:false={showAccountDetails}>
+                              <span title="Show More" onclick={showAccountDetail}
+                                 style="font-weight: bold;  font-stretch: normal;  font-style: normal;  line-height: normal;  letter-spacing: normal;  color: #0070d2;cursor: pointer;"
+                                 class="">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="12" viewBox="0 0 6 12">
+                                    <path fill="#0070D2" fill-rule="nonzero"
+                                       d="M.206 9.804A.716.716 0 0 0 .7 10c.186 0 .364-.07.495-.196l4.642-4.428A.519.519 0 0 0 6 5a.519.519 0 0 0-.163-.376L1.195.196a.722.722 0 0 0-.989 0 .644.644 0 0 0 0 .943L4.25 5.003.2 8.866a.643.643 0 0 0 .006.938z">
+                                    </path>
+                                 </svg>
+                              </span>
+                           </lightning-layout-item>
+                        </lightning-layout>
+                     </lightning-layout-item>
+                     <lightning-layout-item size="6" class="paddingsmall" small-device-size=6 medium-device-size=6
+                        large-device-size=6 if:true={showAccountDetails}>
+                        <span
+                           style="padding-top: 8px; font-family: Arial;  font-size: 12px;  font-weight: bold;  font-stretch: normal;  font-style: normal;  line-height: normal;  letter-spacing: normal;  color: #003c4d;"
+                           class="">Account Details
+                        </span>
+                        <span title="Show Less" onclick={hideAccountDetail}
+                           style="float: right;padding-right: 0.4rem;font-weight: bold;  font-stretch: normal;  font-style: normal;  line-height: normal;  letter-spacing: normal;  color: #0070d2;padding-left: 1.5rem;cursor: pointer;"
+                           class="">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="6" height="12" viewBox="0 0 6 12">
+                              <path fill="#0070D2" fill-rule="nonzero"
+                                 d="M5.794 9.804A.716.716 0 0 1 5.3 10a.716.716 0 0 1-.495-.196L.163 5.376A.519.519 0 0 1 0 5c0-.14.059-.276.163-.376L4.805.196a.722.722 0 0 1 .989 0 .644.644 0 0 1 0 .943L1.75 5.003 5.8 8.866a.643.643 0 0 1-.006.938z">
+                              </path>
+                           </svg>
+                        </span>
+                        <div class="subcontent__txt_style">
+                           <p>
+                              <label>Number: </label>
+                              <label>{accountNumber}</label>
+                           </p>
+                           <!-- <p>
+                              <label>Business Unit: </label>
+                              <label>{BUSINESSUNIT}</label>
+                           </p> -->
+                           <p class="location-pad">
+                              <lightning-layout>
+                                 <lightning-layout-item size="1" class="paddingsmall" small-device-size=1
+                                    medium-device-size=1 large-device-size=1>
+                                    <span>
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="11" height="13"
+                                          viewBox="0 0 11 13">
+                                          <path fill="#706E6B" fill-rule="nonzero"
+                                             d="M9.39 1.584C7.24-.529 3.76-.529 1.61 1.584a5.349 5.349 0 0 0 0 7.652L4.8 12.372a1 1 0 0 0 1.402 0L9.39 9.236a5.349 5.349 0 0 0 0-7.652zM5.5 7.218a1.72 1.72 0 0 1 0-3.438 1.72 1.72 0 0 1 0 3.438z"
+                                             opacity=".2">
+                                          </path>
+                                       </svg>
+                                    </span>
+                                 </lightning-layout-item>
+                                 <lightning-layout-item size="10" class="paddingsmall" small-device-size=10
+                                    medium-device-size=10 large-device-size=10>
+                                    <span
+                                       style="font-family: Arial;  font-size: 12px;  font-weight: normal;  font-stretch: normal;  font-style: normal;  line-height: 1.33;  letter-spacing: normal;  color: #0070d2;">
+                                       {billingStreet} {billingCity} {billingCountry} {billingProvince}
+                                       {billingPostalCode}
+                                    </span>
+                                 </lightning-layout-item>
+                              </lightning-layout>
+                           </p>
+                        </div>
+                     </lightning-layout-item>
+                  </lightning-layout>
+               </div>
+            </div>
+         </lightning-layout-item>
+         <lightning-layout-item size="2" class="slds-border_right" small-device-size=2 medium-device-size=2
+            large-device-size=2>
+            <div class="header__content paddingsmall">
+               <label class="header__title_new">{label.Credit_And_Collection_Details}</label>
+               <div class="subContent-padding subcontent__txt_style">
+                  <!-- <p>
+                     <label>Total AR: </label>
+                     <label>{baseTotalAR}</label>
+                     <lightning-formatted-number currency-code={currencyISOCode} format-style="currency"
+                         value={baseTotalAR} >
+                      </lightning-formatted-number>
+                      <label>{totalARShortForm} </label>
+                  </p> -->
+                  <!-- <p>
+                     <label> Total Past Due: </label>
+                     <label>{totalPastDue}
+                     </label>
+                   </p> -->
+
+                  <!-- <p>
+                      <label> Total Past Due: </label>
+                      <lightning-formatted-number currency-code={currencyISOCode} format-style="currency"
+                          value={totalPastDue} >
+                      </lightning-formatted-number>
+                      <label>{totalPassDueShortForm}</label>
+                  </p> -->
+
+                  <!-- <p>
+                     <label>Credit Limit: </label>
+                     <label>{CreditLimit}</label>
+                  </p>
+                  <p>
+                     <label>System Credit Limit: </label>
+                     <label>{systemCreditLimit}</label>
+                  </p> -->
+                  <!-- <p>
+                     <label>Short-term Utilization: </label>
+                     <label>{shortTermUtilization}%</label>
+                  </p> -->
+                  <p>
+                     <label>{label.Open_Billing_Value}: </label>
+                     <label>{openBillingValue}</label>
+                  </p>
+                  <p>
+                     <label>{label.Open_Delivery_Value}: </label>
+                     <label>{openDeliveryValue}</label>
+                  </p>
+                  <p>
+                     <label>Total Order Value: </label>
+                     <label>{TotalOrderValue}</label>
+                  </p>
+
+
+               </div>
+            </div>
+            
+            <!-- <div if:true={drivingTransactionTotalCount} class="value_saperater">
+
+            </div>
+            <div class="header__content paddingsmall" style="padding-top: 0;">
+               <p if:true={latestTreatmentSegment} class="slds-truncate subcontent__txt_style" style="font-size: 12px;">
+                  <label>Segment: </label>
+                  <span title={latestTreatmentSegment}>{latestTreatmentSegment}</span>
+               </p>
+               <div if:true={drivingTransactionTotalCount} class="subContent-padding subcontent__txt_style">
+                  <p class="slds-truncate" style="font-size: 12px;">
+                     <label>Driving Transactions: </label>
+                     <span style="background-color: rgb(192, 244, 192);padding: 0.3rem;border-radius: 11px;">
+                        <label>{drivingTransactionTotal} </label>
+                        <span>({drivingTransactionTotalCount})</span>
+                     </span>
+                  </p>
+
+                  <span style="font-size: 12px;">
+                     <label>Treatment Stage: </label>
+                     <span class="tooltip tooltip-main">
+                        <span style="position:relative">
+                           <lightning-button-icon icon-name="utility:info" variant="bare" onfocus={treatmentStageFocus}
+                              onfocusout={treatmentStageFocusOut}></lightning-button-icon>
+                           <div class=" tooltiptext slds-popover slds-popover_tooltip slds-nubbin_bottom-left"
+                              role="tooltip" id="help"
+                              style="position:absolute;top:-60px;left:-440px;min-width: max-content;padding: 0.4rem;background:#f5f5f5;box-shadow: 0 2px 3px 0 #cec7c7;font-size:11px;">
+                              <div class="slds-popover__body treatmentStageHelp"></div>
+                              {treatmentStageHelp}
+                           </div>
+                        </span>
+                     </span>
+                  </span>
+
+               </div>
+            </div> -->
+         </lightning-layout-item>
+         <lightning-layout-item size="3" class="paddingsmall slds-border_right" small-device-size=3 medium-device-size=3
+            large-device-size=3>
+            <!-- <div class="header__content">
+               <label class="header__title_new">Aging Bucket</label>
+               <lightning-layout>
+                  <lightning-layout-item size="5" class="paddingsmall" small-device-size=5 medium-device-size=5
+                     large-device-size=5>
+                     <canvas class="pieChartContainer" width="110" height="110"></canvas>
+                  </lightning-layout-item>
+               </lightning-layout>
+            </div> -->
+            <div class="header__content paddingsmall">
+               <label class="header__title_new">{label.Historic_Data_Analysis}</label>
+               <div class="subContent-padding subcontent__txt_style">
+                  <!-- <p>
+                     <label>Recent Payment Behaviour: </label>
+                     <label>{recentPaymentBehaviour}</label>
+                  </p> -->
+                  <p>
+                     <label>{label.Credit_Reform_Rating}: </label>
+                     <label>{creditReformRating}</label>
+                  </p>
+                  <p>
+                     <label>{label.Amount_AR_Past_Due}: </label>
+                     <label>{amountARPastDue}</label>
+                  </p>
+                  <!-- <p>
+                     <label>Draws Discount: </label>
+                     <label>{drawsDiscount}</label>
+                  </p> -->
+                  <p>
+                     <label>{label.Frequent_Payment_Term}: </label>
+                     <label>{frequentPaymentTerm}</label>
+                  </p>
+                  <!-- <p>
+                     <label>Invoice Volume: </label>
+                     <label>{revenueCategory}</label>
+                  </p> -->
+               </div>
+            </div>
+         </lightning-layout-item>
+         <lightning-layout-item size="2" class="slds-border_right" small-device-size=2 medium-device-size=2
+            large-device-size=2>
+            <div class="header__content">
+               <label class="header__title_new paddingsmall">{label.Communication_Details}</label>
+               <div class="subContent-padding subcontent__txt_style">
+                  <!-- <p>
+                        <label>Contact Name: </label>
+                        <a onclick={viewContactDetails}><span class="slds-truncate"
+                                if:true={defContact}>{defContact.Name}</span></a>
+                    </p>
+ 
+                    <p>
+                        <label>Contact Phone: </label>
+                        <span class="slds-truncate"
+                                if:true={defContact}>{defContact.Phone}</span>
+                    </p>
+                    
+                    <lightning-layout >
+                        <lightning-layout-item class="note_title">
+                            <label>Email: </label>
+                        </lightning-layout-item>
+                        <lightning-layout-item size=8 if:true={defContact}>
+                            <p class="slds-truncate" title={defContact.Email}>{defContact.Email}</p>
+                        </lightning-layout-item>
+                    </lightning-layout> -->
+                  <div class="paddingsmall">
+                     <label>{label.Latest_Credit_Review}: </label>
+                     <label class="slds-truncate latestCreditReview" title={latestCreditReview}><span
+                           style="display: none;">{latestCreditReview}</span></label>
+                  </div>
+                  <div class="paddingsmall">
+                     <label>{label.Last_Credit_Review_Date}: </label>
+                     <label class="slds-truncate" title={lastCreditReviewDate}>{lastCreditReviewDate}</label>
+                  </div>
+                  <!-- <p>
+                     <label>Contact Details: </label>
+                     <a onclick={viewContactDetails}><span class="slds-truncate"
+                        if:true={defCon}>{defCon.Name}</span></a>
+                  </p> -->
+                  <lightning-layout class="paddingsmall">
+                     <lightning-layout-item size=6>
+                        <label>{label.Contact_Details}: </label>
+                     </lightning-layout-item>
+                     <!-- class="note_width" -->
+                     <lightning-layout-item size=1 if:true={defCon}>
+
+                        <div class="slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+                           <div style="cursor: pointer;">
+                              <!-- <lightning-icon if:true={defContact.Phone} icon-name="utility:call" size="x-small" alternative-text="call" title="Click To Dial" onclick={onClickToOpenContact} onblur={onBlurToHideContact}></lightning-icon> -->
+                              <lightning-button-icon if:true={defCon.Phone} icon-name="utility:call" variant="bare"
+                                 alternative-text="call" title="Click To Dial" onclick={onClickToOpenContact}
+                                 onblur={onBlurToHideContact}></lightning-button-icon>
+
+                              <!-- <template if:true={isOpenContact}> -->
+                              <div data-id="contact-action" class="slds-dropdown slds-dropdown_left slds-hide">
+                                 <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
+                                    <li class="slds-dropdown__item" role="presentation"
+                                       style="width: 100%;margin-top:0px;" if:true={defCon.Phone}>
+                                       <a role="menuitem" tabindex="0">
+                                          <span>Phone:</span>
+                                          <span style=" color:blue; text-decoration:underline; cursor:pointer;"
+                                             title="Phone" tabindex="0" data-name="Phone" onclick={onClickToDial}>
+                                             {defCon.Phone}
+                                          </span>
+                                       </a>
+                                    </li>
+                                    <li class="slds-dropdown__item" role="presentation"
+                                       style="width: 100%;margin-top:0px;" if:true={defCon.HomePhone}>
+                                       <a role="menuitem" tabindex="0">
+                                          <span> Home Phone: </span>
+                                          <span style=" color:blue; text-decoration:underline; cursor:pointer;"
+                                             title="HomePhone" tabindex="0" data-name="HomePhone"
+                                             onclick={onClickToDial}>
+                                             {defCon.HomePhone}
+                                          </span>
+                                       </a>
+                                    </li>
+                                    <li class="slds-dropdown__item" role="presentation"
+                                       style="width: 100%;margin-top:0px;" if:true={defCon.MobilePhone}>
+                                       <a role="menuitem" tabindex="0">
+                                          <span> Mobile: </span>
+                                          <span style=" color:blue; text-decoration:underline; cursor:pointer;"
+                                             title="MobilePhone" tabindex="0" data-name="MobilePhone"
+                                             onclick={onClickToDial}>
+                                             {defCon.MobilePhone}
+                                          </span>
+                                       </a>
+                                    </li>
+                                    <li class="slds-dropdown__item" role="presentation"
+                                       style="width: 100%;margin-top:0px;" if:true={defCon.AssistantPhone}>
+                                       <a role="menuitem" tabindex="0">
+                                          <span>Assistant Phone: </span>
+                                          <span style=" color:blue; text-decoration:underline; cursor:pointer;"
+                                             title="AssistantPhone" tabindex="0" data-name="AssistantPhone"
+                                             onclick={onClickToDial}>
+                                             {defCon.AssistantPhone}
+                                          </span>
+                                       </a>
+                                    </li>
+                                    <li class="slds-dropdown__item" role="presentation"
+                                       style="width: 100%;margin-top:0px;" if:true={defCon.OtherPhone}>
+                                       <a role="menuitem" tabindex="0">
+                                          <span> Phone: </span>
+                                          <span style=" color:blue; text-decoration:underline; cursor:pointer;"
+                                             title="OtherPhone" tabindex="0" data-name="OtherPhone"
+                                             onclick={onClickToDial}>
+                                             {defCon.OtherPhone}
+                                          </span>
+                                       </a>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </div>
+                           <!-- </template> -->
+                        </div>
+                     </lightning-layout-item>
+                     <lightning-layout-item size=5>
+                        <a onclick={viewContactDetails}>
+                           <p class="slds-truncate" title={defCon.Name} if:true={defCon}>{defCon.Name}</p>
+                        </a>
+
+                     </lightning-layout-item>
+
+                  </lightning-layout>
+                  <!-- <div class="value_saperater" style="margin-top: 0.5rem">
+                     
+                </div> -->
+                  <!-- <label class="header__title_new paddingsmall">Completed Activity (Last Month)</label> -->
+                  <!-- <p class="paddingsmall">
+                   <label>Email (Incoming/Outgoing): </label>
+                   <label>28/19</label> -->
+                  <!-- <label>{totalActivityOfLastMonth.incomingEmailCount}</label> -->
+                  <!-- </p> -->
+                  <!-- <p class="paddingsmall">
+                   <label>Outgoing Email: </label>
+                   <label>19</label>
+                   <label>{totalActivityOfLastMonth.outgoingEmailCount}</label>
+                </p> -->
+                  <!-- <p class="paddingsmall">
+                   <label>Task (Manual/Auto): </label>
+                   <label>9/20</label> -->
+                  <!-- <label>{totalActivityOfLastMonth.taskCount}</label> -->
+                  <!-- </p> -->
+
+                  <!-- <p>
+                     <label><img src={brandLogo} style="height: 30px;" /></label>
+                  </p> -->
+                  <!-- <p>
+                      <label>Account Owner: </label>
+                      <a onclick={viewUserDetails}><span class="slds-truncate" >{AccountOwner}</span></a>
+                  </p> -->
+
+               </div>
+            </div>
+         </lightning-layout-item>
+         <lightning-layout-item size={headNoteDivSize} class="paddingsmall" small-device-size={headNoteDivSize}
+            medium-device-size={headNoteDivSize} large-device-size={headNoteDivSize}>
+            <div class="header__content">
+               <label class="header__title_new">{label.Header_Note}
+               </label>
+               <lightning-icon icon-name="utility:expand_alt" alternative-text="New Window" size="x-small"
+                  onclick={openStickyPopup} style="float: right;
+                     margin-right: 10px;"></lightning-icon>
+               <lightning-layout>
+                  <div class="subContent-padding subcontent__txt_style" style={headerNoteContentWidth}>
+                     <lightning-layout-item class="slds-grid" size="12">
+                        <p title={stickyNotes}
+                           class="span-padding slds-truncate spanScroll slds-grid slds-size_11-of-12"
+                           if:false={isEditable} style={spanBackground}>{stickyNotes}</p>
+                        <textarea style="max-height:4.5rem;min-height:4.5rem;height:4.5rem;" data-info="inline"
+                           if:true={isEditable} onblur={checkIsEditableFalse} onchange={updateStickyNotes} rows="4"
+                           cols="50" placeholder="Click on edit to add/edit sticky notes"
+                           class="slds-text-heading_small editable"> {stickyNotes}
+                         </textarea>
+                     </lightning-layout-item>
+                  </div>
+               </lightning-layout>
+               <lightning-layout class="value_saperater" style="margin-top: 1rem;">
+               </lightning-layout>
+               <lightning-layout style="padding-top: 4px;padding-bottom: 2px;" verticalalign="end">
+                  <lightning:layoutItem alignmentbump="right" style="min-width: 48%;">
+                     <span data-id="thumbnail" class="slds-swatch spanColor"
+                        style="width: 14px;height: 14px;border-radius: 2px;border: solid 1px #F5FBA4;background: rgba(231, 245, 29, 0.404);"
+                        onclick={changeNoteColor}></span>&nbsp;
+                     <span data-id="thumbnail" class="slds-swatch spanColor"
+                        style="width: 14px;height: 14px;border-radius: 2px;border: solid 1px #DBFBB5;background: rgba(169, 245, 81, 0.425);"
+                        onclick={changeNoteColor}></span>&nbsp;
+                     <span data-id="thumbnail" class="slds-swatch spanColor"
+                        style="width: 14px;height: 14px;border-radius: 2px;border: solid 1px #FBA4A4;background: rgba(245, 5, 5, 0.363);"
+                        onclick={changeNoteColor}></span>&nbsp;
+                     <span data-id="thumbnail" class="slds-swatch spanColor"
+                        style="width: 14px;height: 14px;border-radius: 2px;border: solid 1px #F1C2DD;background: rgba(235, 166, 206, 0.685);"
+                        onclick={changeNoteColor}></span>&nbsp;
+                  </lightning:layoutItem>
+                  <lightning:layoutItem style="min-width: 50%;">
+                     <lightning-layout horizontalalign="end" pulltoboundary="medium" style="float: right;">
+                        <lightning:layoutItem>
+                           <span onclick={checkIsEditable}
+                              style="cursor: pointer;font-weight: bold;  font-stretch: normal;  font-style: normal;  line-height: normal;  letter-spacing: normal;  color: #0070d2;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
+                                 <path fill="#0070D2" fill-rule="nonzero"
+                                    d="M8.146 1.253a1.378 1.378 0 0 1 1.838-.098l.112.101.65.685c.503.502.536 1.292.1 1.832l-.1.112-6.274 6.249a.209.209 0 0 1-.051.068l-.084.059-.011.002-.03.017-.062.016-2.717.834-.044.012-.046.006-.068.002a.51.51 0 0 1-.371-.162.546.546 0 0 1-.135-.418l.018-.093.83-2.682v-.013a.275.275 0 0 1 .011-.067l.03-.061.01-.008.025-.044.055-.061 6.314-6.288zM2.45 8.886l-.297.955.966-.289-.669-.666zm5.052-5.522L2.938 7.917l1.153 1.14 4.564-4.542-1.154-1.151zm1.437-1.421l-.063.05-.633.631 1.142 1.138.637-.633a.337.337 0 0 0 .055-.413l-.047-.06-.664-.662a.341.341 0 0 0-.357-.085l-.07.034z">
+                                 </path>
+                              </svg>
+                              Edit
+                           </span>
+                        </lightning:layoutItem>
+                     </lightning-layout>
+                     <!-- <lightning-icon icon-name="utility:edit" if:false={isEditable} aria-hidden="true"
+                         alternative-text="Edit" size="x-small" style="margin: 0.2rem; float:right;"
+                         onclick={checkIsEditable}>
+                         </lightning-icon> -->
+                  </lightning:layoutItem>
+               </lightning-layout>
+            </div>
+         </lightning-layout-item>
+      </lightning-layout>
+      <div class="callButton" if:true={showCallButton}>
+         <span class="oval">
+            <img
+               src="https://srm-demo1-dev-ed--c.documentforce.com/sfc/dist/version/renditionDownload?rendition=ORIGINAL_Gif&amp;versionId=0686g000004pJ12&amp;operationContext=DELIVERY&amp;contentId=05T6g00000LoKrU&amp;page=0&amp;d=/a/6g000000g2t0/OwAUom9.tg.JHyOWQEhfvErl7dXQ9qjglDc3QTu6NS8&amp;oid=00D6g000004YoZO&amp;dpt=null&amp;viewId="
+               alt="Call" />
+         </span>
+      </div>
+      <span class="hilightpanel_arrow" title="Click here to close this section" if:true={isHighlightPanel}
+         onclick={hideHighlightPanel}>
+
+         <img height="4" width="9" style="position: absolute;"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAR0AAACnCAYAAAAsTIjcAAAFTklEQVR42u3dzWscZQDH8QcUq3hQ9CBaBEVbDx7Ei/9D9SCovQgVamJSs9mZ9QVaRUgtiP+AeBBf8CY9eiiKh3qoMS8184xRRPQoKJ7aGptaY3R2G1vTJDQvO48w+/nBh16SHp5tv8zuTrIhmG11+07sChPHb3AQZtbftab3hnbxXMiK90IeJ0Ne/lL5K3S+/rsnj0shiz9Xf54KefFu9XUHw8jp+xycmW1+hyZ3h3Z8LXTit5fjslV5LKu/43AYnrrDgZrZ+hv76v7qquX96krmj23H5mpZXAxZ+XYYm7nbAZvZpR349ObQLt+oYnOhb7FZc+VTLlRPv17tvRZkZgO81syDVRDma4vNmiufYi6MTu1x8GaDuCwe6D39SRWcK0+5zoV28ZgHwGygglPkq96FSq37rtd4OeSBMBuEdYqj/1tsVr/Os1zFr+UBMRMc4TGzBgZHeMwER3jMrPnBER4zwREeM2t+cITHTHCEx8yaHxzhMRMc4TGz5gdHeMwER3jMrPnBER4zwREeM8ERHjMTHOExExzhMTPBER4zwREeM8ERGOExExzhMRMc4fEPx0xwhMdMcITHzARHeMwER3jMBAfhMRMc4TETHITHTHCEx0xwhMdMcBAeM8ERHjPBQXjMBEd4zAQH4THBQXjMBEd4hMcEB+ExExzhMRMchMcEB+ExExyExwQH4TETHITHBAfhMcFBeMwEB+ExwUF4zAQH4THBQXjMBAfhMcFBeExwEB7hMcFBeExwEB4zwUF4THAQHhMcEB4THITHBAeExwQH4THBQXhMcEB4THAQHhMcEB4THITHBAeER3BAeExwEB7hERwQHhMchMcEB4RHcEB4THBAeAQHhMcEB4RHcEB4BEdwEB4THBAewQHhMcEB4REcEB4THBAewQHhERxAeAQHhEdwQHhMcEB4BAeER3AA4REcEB7BAYRHcEB4BAeER3AA4REcEB7BAYRHcEB4BAcYxPAIDgiP4ADNC4/ggPAIDtC88AgOCI/gAM0Lj+CA8AgO0LzwCA4Ij+AAzQuP4IDwCA7QvPAIDpAsPIIDJAuP4ADJwiM4QLLwCA6QLDyCAyQLj+AAycKTxSMOENh2eMbLoS0EpzjY+yaHB2w7PPHP0CoevXZw2rOPVMG54NCAnYtnQmt678bB2XdiV/W06jsHBfTximcmhP3XeeEYSBieYmxtcEan9lRXOYsOCKjhaudsODS5e3V08viRwwFqk8W3rgRn5PSdIS8vOhigxqud38LIZ7f8e0/OMYcC1K4ds5WnVuVPDgRIcNPg/Mq7Vg4DSOTZU3eJDpDwBeXiadEBUr6g/I7oAAmVn4sOkPDpVfm96ABp79dxEEDCt82XRQdIeaXzu+gAKX/i/FfRAVJe6fwoOkDKd68+Fh0gYXTiMdEB0mnNPdn9BV5LDgNI8Hb5xfDM9O2hd1uyAwHqj84nK79PpxhzIEDtLn8A39DkbSGL5xwKUJ94JnRO3vqfD9mLbzoUoMb7c15f/WkQ3Rd3XO0A9QTnbO8Z1dqPFI6vOCCghhsCX17/Ez4nJq4PeTnlkIA+XuV8sfHHCnf3/OwD1Redd1hAX36ivPvpwddcNve4GwaBHQZn6dLdx5tdO446OGCbNwEuVxcvw2HLy+KR3jc7RGArwcnjS2Hba889Vf0lCw4T2ERwFqpnSU+EHa89+3DvF+84VGDj13B+CONzD4W+bf/xm6qCHXbVA1wVm/OhUxwNEydvDLVsePreKjwfhiwuOnAY8Njk8YPQ+fKekGTdH5toxxdDVnzjAYCBet1mvvp//8L6P9awuf0Dw4nHXfjghIkAAAAASUVORK5CYII=" />
+      </span>
+      <template if:true={checkStickyPopup}>
+         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+            aria-describedby="modal-content-id" class="slds-modal slds-fade-in-open">
+            <div>
+               <div class="slds-modal__container">
+                  <header style="position: relative">
+                     <button
+                        class="slds-button slds-modal__close closeIcon slds-button_icon-bare slds-button_icon-inverse"
+                        title=Close onclick={closeStickyPopup}>
+                        <lightning-icon icon-name="utility:close" size="small" variant="inverse" alternative-text=Close>
+                        </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                     </button>
+                  </header>
+                  <div class="slds-modal__content slds-p-around_medium">
+                     <div>
+                        <textarea rows=20 maxlength=100000 class="slds-textarea" onchange={updateStickyNotes}>
+                                  {stickyNotes}
+                              </textarea>
+                     </div>
+                  </div>
+                  <footer class="slds-modal__footer">
+                     <button class="slds-button slds-button_neutral" style="padding-left: 0.5rem;"
+                        onclick={closeStickyPopup}>Cancel</button>
+                     <button class="slds-button slds-button_brand" onclick={stickyNotesSave}>Save</button>
+                  </footer>
+               </div>
+            </div>
+         </section>
+         <div class="slds-backdrop slds-backdrop_open"></div>
+      </template>
+   </div>
+</template>

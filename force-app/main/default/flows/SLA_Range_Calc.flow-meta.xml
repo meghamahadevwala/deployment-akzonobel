@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <environments>Default</environments>
+    <interviewLabel>SLA Range Calc {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SLA Range Calc</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>SLA_Range</name>
+        <label>SLA Range</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Dispute_SLA_Days_Range_Calc__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Not Expired</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Dispute_SLA_Days_Range_Calc__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Expired from 1-15 Days</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Dispute_SLA_Days_Range_Calc__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Expired from 15-30 Days</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Dispute_SLA_Days_Range_Calc__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Expired above 30 days</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Dispute_SLA_Days_Range__c</field>
+            <value>
+                <elementReference>$Record.Dispute_SLA_Days_Range_Calc__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>celsrm__Dispute__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>SLA_Range</targetReference>
+        </connector>
+        <object>celsrm__Dispute__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

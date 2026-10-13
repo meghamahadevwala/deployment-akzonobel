@@ -1,0 +1,19 @@
+.project
+.settings
+salesforce.schema
+Referenced Packages
+.sfdx/
+.sf/
+.DS_Store
+.forceignore
+README.md
+force-app/main/default/lwc/jsconfig.json
+.github/workflows/*.yml
+.github/workflows/*.yaml
+!.github/workflows/deploy.yml
+!.github/workflows/sync-unmanaged-pr.yml
+!.github/workflows/pmd-analysis.yml
+!.github/workflows/cicd-file-guard.yml
+.vscode
+config
+sfdx-project.json

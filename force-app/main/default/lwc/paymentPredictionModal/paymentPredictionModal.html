@@ -1,0 +1,78 @@
+<template>
+    <template lwc:if={isOpen}>
+      <div class="modal-backdrop" onclick={handleBackdropClick}>
+        <div class="modal-container" onclick={handleContentClick}>
+          <header class="modal-header modal-header-emerald">
+            <div class="modal-header__left">
+              <div class="modal-header__icon">
+                <lightning-icon icon-name="utility:trending" size="small"></lightning-icon>
+              </div>
+              <div>
+                <h2 class="modal-header__title">Payment Prediction Details</h2>
+                <p class="modal-header__subtitle">AI-Powered Invoice Payment Forecast</p>
+              </div>
+            </div>
+            <button type="button" class="modal-close" onclick={handleClose} aria-label="Close">
+              <lightning-icon icon-name="utility:close" size="medium"></lightning-icon>
+            </button>
+          </header>
+  
+          <div class="modal-body">
+            <template for:each={predictions} for:item="pred">
+              <div key={pred.key} class="prediction-block">
+                <div class="prediction-block__header">
+                  <div class="prediction-block__header-left">
+                    <lightning-icon icon-name="utility:event" size="small" class="icon-emerald"></lightning-icon>
+                    <div>
+                      <h3 class="prediction-block__title">Expected Payment: {pred.dateFormatted}</h3>
+                      <p class="prediction-block__meta">{pred.invoiceCount} invoices • ${pred.totalAmountFormatted} total</p>
+                    </div>
+                  </div>
+                  <div class="prediction-block__confidence-wrap">
+                    <span class="prediction-block__confidence-label">Overall Confidence:</span>
+                    <span class={pred.badgeClass}>{pred.confidence}%</span>
+                  </div>
+                </div>
+                <div class="prediction-table-wrap">
+                  <table class="prediction-table">
+                    <thead>
+                      <tr>
+                        <th>Invoice #</th>
+                        <th>Invoice Date</th>
+                        <th>Due Date</th>
+                        <th>Balance</th>
+                        <th>Confidence</th>
+                        <th>AI Reasoning</th>
+                        <th>DPD</th>
+                        <th>Document Type</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <template for:each={pred.invoices} for:item="inv">
+                        <tr key={inv.key}>
+                          <td class="td-invoice">
+                            <lightning-icon icon-name="utility:file" size="xx-small" class="icon-blue"></lightning-icon>
+                            <span class="invoice-num">{inv.number}</span>
+                          </td>
+                          <td>{inv.invoiceDateFormatted}</td>
+                          <td>{inv.dueDateFormatted}</td>
+                          <td class="td-amount">${inv.balanceFormatted}</td>
+                          <td><span class={inv.badgeClass}>{inv.confidence}%</span></td>
+                          <td class="td-reasoning">{inv.reasoning}</td>
+                          <td >{inv.dpd}</td>
+                          <td >{inv.documentType}</td>
+                        </tr>
+                      </template>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </template>
+          </div>
+  
+          <footer class="modal-footer">
+          </footer>
+        </div>
+      </div>
+    </template>
+  </template>

@@ -1,0 +1,65 @@
+<template>
+  <div class="dashboard">
+    <div class="dashboard__inner">
+
+
+      <!-- Main: AI Insights + Account Metrics -->
+      <div class="dashboard__main" style={mainGridStyle}>
+        <div class="dashboard__panel dashboard__panel-ai" if:true={showAiInsights}>
+          <c-ai-insights-section
+            record-id={effectiveRecordId}
+            show-dunning-card={enableAIDunning}
+            show-payment-prediction-card={enableAIPaymentPrediction}
+            onpaymentknowmore={handlePaymentKnowMore}
+            ondunningknowmore={handleDunningKnowMore}
+          ></c-ai-insights-section>
+        </div>
+        <div
+          if:true={showAiInsights}
+          class="resize-handle"
+          role="separator"
+          aria-valuenow={aiPanelPercent}
+          aria-label="Resize panels"
+          onmousedown={handleResizeStart}
+        >
+          <div class="resize-handle__line"></div>
+          <div class="resize-handle__grip">
+            <span class="resize-handle__dot"></span>
+            <span class="resize-handle__dot"></span>
+            <span class="resize-handle__dot"></span>
+            <span class="resize-handle__dot"></span>
+          </div>
+        </div>
+        <div class="dashboard__panel dashboard__panel-metrics">
+          <div class="metrics-scroll" if:true={effectiveRecordId}>
+            <div class="metrics-cards">
+              <div class="metrics-card-slot">
+                <c-account-info-card record-id={effectiveRecordId}></c-account-info-card>
+              </div>
+              <div class="metrics-card-slot">
+                <c-collection-details-card record-id={effectiveRecordId}></c-collection-details-card>
+              </div>
+              <div class="metrics-card-slot">
+                <c-aging-bucket-card record-id={effectiveRecordId}></c-aging-bucket-card>
+              </div>
+              <div class="metrics-card-slot">
+                <c-communication-details-card record-id={effectiveRecordId}></c-communication-details-card>
+              </div>
+              <div class="metrics-card-slot">
+                <c-quick-note-card record-id={effectiveRecordId}></c-quick-note-card>
+              </div>
+            </div>
+          </div>
+          <div class="metrics-empty" if:false={effectiveRecordId}>
+            <p class="metrics-empty__text">{label.openAccountToView}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Modals (same as React app) -->
+    <c-payment-prediction-modal is-open={showPaymentModal} record-id={effectiveRecordId} onclose={handlePaymentModalClose}></c-payment-prediction-modal>
+    <c-dunning-insights-modal is-open={showDunningModal} record-id={dunningModalRecordId} onclose={handleDunningModalClose}></c-dunning-insights-modal>
+  </div>
+</template>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Called_To__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Called To</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Customer Communications</relationshipLabel>
+    <relationshipName>Customer_Communications</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

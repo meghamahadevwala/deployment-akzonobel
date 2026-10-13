@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Update_Account_Risk_Class_And_Check_Rule_Action_1</name>
+        <label>Update Based on Moodys Risk Class Mapping</label>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
+        <actionName>RiskClassCheckRuleMappingService</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>acc</name>
+            <value>
+                <elementReference>$Record</elementReference>
+                <inputConfiguratorMode>Resource</inputConfiguratorMode>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>accountRiskClass</name>
+            <value>
+                <elementReference>$Record.Moody_s_Risk_Class__c</elementReference>
+                <inputConfiguratorMode>Resource</inputConfiguratorMode>
+            </value>
+        </inputParameters>
+        <nameSegment>RiskClassCheckRuleMappingService</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>63.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Copy_1_of_Payment_Behaviour_and_Trend</name>
+        <label>Payment Behaviour and Trend</label>
+        <locationX>3218</locationX>
+        <locationY>755</locationY>
+        <defaultConnector>
+            <targetReference>Copy_5_of_Update_Risk_Class_and_Check_Rule</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Copy_1_of_On_Time_Improved</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>On Time</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Trend__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Behaviour Improved</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Update_Risk_Class_and_Check_Rule</targetReference>
+            </connector>
+            <label>On Time &amp; Improved</label>
+        </rules>
+        <rules>
+            <name>Copy_1_of_On_Time_Declined</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>On Time</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Trend__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Behaviour Declined</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_2_of_Update_Risk_Class_and_Check_Rule</targetReference>
+            </connector>
+            <label>On Time &amp; Declined</label>
+        </rules>
+        <rules>
+            <name>Copy_1_of_Late_Improved</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Late</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Trend__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Behaviour Improved</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_3_of_Update_Risk_Class_and_Check_Rule</targetReference>
+            </connector>
+            <label>Late &amp; Improved</label>
+        </rules>
+        <rules>
+            <name>Copy_1_of_Late_Declined</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Late</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Trend__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Behaviour Declined</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_4_of_Update_Risk_Class_and_Check_Rule</targetReference>
+            </connector>
+            <label>Late &amp; Declined</label>
+        </rules>
+        <rules>
+            <name>Copy_1_of_Very_Late_Improved</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Very Late</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Trend__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Behaviour Improved</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Copy_4_of_Update_Risk_Class_and_Check_Rule</targetReference>
+            </connector>
+            <label>Very Late &amp; Improved</label>
+        </rules>
+        <rules>
+            <name>Copy_1_of_Very_Late_Declined</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Very Late</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Trend__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Behaviour Declined</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_2_of_Copy_4_of_Update_Risk_Class_and_Check_Rule</targetReference>
+            </connector>
+            <label>Very Late &amp; Declined</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Credit_Limit_Bucket</name>
+        <label>Credit Limit Bucket</label>
+        <locationX>4802</locationX>
+        <locationY>647</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Credit_Limit_50K_EUR</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Calculated_Credit_Limit_Group_Currency__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>50000.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Update_Risk_Class_and_Check_Rule_CG3</targetReference>
+            </connector>
+            <label>Credit Limit &gt; 50K EUR</label>
+        </rules>
+        <rules>
+            <name>Credit_Limit_Less50K_EUR</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Calculated_Credit_Limit_Group_Currency__c</leftValueReference>
+                <operator>LessThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>50000.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Update_Risk_to_Medium</targetReference>
+            </connector>
+            <label>Credit Limit &lt; 50K EUR</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Credit_Limit_Bucket_Existing_Big</name>
+        <label>Credit Limit Bucket</label>
+        <locationX>2822</locationX>
+        <locationY>647</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Credit_Limit_50K_EUR_Existing_Big</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Calculated_Credit_Limit_Group_Currency__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>50000.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Payment_Behaviour_and_Trend</targetReference>
+            </connector>
+            <label>Credit Limit &gt; 50K EUR</label>
+        </rules>
+        <rules>
+            <name>Credit_Limit_50K_EUR_Existing_Big1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Calculated_Credit_Limit_Group_Currency__c</leftValueReference>
+                <operator>LessThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>50000.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Payment_Behaviour_and_Trend</targetReference>
+            </connector>
+            <label>Credit Limit &lt; 50K EUR</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Has_Moody_s_Info</name>
+        <label>Has Moody&apos;s Info</label>
+        <locationX>2195</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Risk_Class_Group</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Outcome_1_of_Has_Moody_s_Info</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Moody_s_Risk_Class__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Account_Risk_Class_And_Check_Rule_Action_1</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Previous_Legal</name>
+        <label>Is Previous Legal?</label>
+        <locationX>1122</locationX>
+        <locationY>323</locationY>
+        <defaultConnector>
+            <targetReference>Has_Moody_s_Info</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Previous_Legal</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0004 - ALA - Legal Action</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0010 - AGY - Agency/Lawyer</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0011 - ATR - Atradius</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0016 - CAD - Cadex</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_2_of_Update_Risk_to_Medium</targetReference>
+            </connector>
+            <label>Previous Legal</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Payment_Behaviour_and_Trend</name>
+        <label>Payment Behaviour and Trend</label>
+        <locationX>1370</locationX>
+        <locationY>755</locationY>
+        <defaultConnector>
+            <targetReference>Copy_6_of_Update_Risk_Class_and_Check_Rule</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>On_Time_Improved</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>On Time</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Trend__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Behaviour Improved</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Risk_Class_and_Check_Rule_1</targetReference>
+            </connector>
+            <label>On Time &amp; Improved</label>
+        </rules>
+        <rules>
+            <name>On_Time_Declined</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>On Time</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Trend__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Behaviour Declined</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Risk_Class_and_Check_Rule_2</targetReference>
+            </connector>
+            <label>On Time &amp; Declined</label>
+        </rules>
+        <rules>
+            <name>Late_Improved</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Late</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Trend__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Behaviour Improved</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Risk_Class_and_Check_Rule_3</targetReference>
+            </connector>
+            <label>Late &amp; Improved</label>
+        </rules>
+        <rules>
+            <name>Late_Declined</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Late</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Trend__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Behaviour Declined</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Risk_Class_and_Check_Rule_4</targetReference>
+            </connector>
+            <label>Late &amp; Declined</label>
+        </rules>
+        <rules>
+            <name>Very_Late_Improved</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Very Late</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Trend__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Behaviour Improved</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Risk_Class_and_Check_Rule_5</targetReference>
+            </connector>
+            <label>Very Late &amp; Improved</label>
+        </rules>
+        <rules>
+            <name>Very_Late_Declined</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Very Late</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Trend__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment Behaviour Declined</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Risk_Class_and_Check_Rule_6</targetReference>
+            </connector>
+            <label>Very Late &amp; Declined</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Risk_Class_Group</name>
+        <label>Risk Class Group</label>
+        <locationX>4076</locationX>
+        <locationY>539</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>ExistingCustomers</name>
+            <conditionLogic>(1 OR 2) AND 3</conditionLogic>
+            <conditions>
+                <leftValueReference>IsCreatedMoreThan3Months</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>No Data Available</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ParentId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Credit_Limit_Bucket_Existing_Big</targetReference>
+            </connector>
+            <label>Existing Customers</label>
+        </rules>
+        <rules>
+            <name>New_Customers</name>
+            <conditionLogic>(1 AND 2)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0003 - RCA - Regular Credit Account</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ParentId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Credit_Limit_Bucket</targetReference>
+            </connector>
+            <label>New Customers</label>
+        </rules>
+    </decisions>
+    <description>Add parent account to blank</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>IsCreatedMoreThan3Months</name>
+        <dataType>Boolean</dataType>
+        <expression>TODAY() &gt; ADDMONTHS({!$Record.Creation_Date__c}, 3)</expression>
+    </formulas>
+    <interviewLabel>Risk Class and Check Rule 2 {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Risk Class and Check Rule 2</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Copy_1_of_Copy_4_of_Update_Risk_Class_and_Check_Rule</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>3482</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z05 Risk Class High</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>5 - High Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_1_of_Update_Risk_Class_and_Check_Rule</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>2426</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z03 Risk Class Low</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>3 - Low Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_1_of_Update_Risk_Class_and_Check_Rule_CG3</name>
+        <label>Update Risk to Medium</label>
+        <locationX>4538</locationX>
+        <locationY>755</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z04 Risk Class Medium</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>4 - Medium Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_1_of_Update_Risk_to_Medium</name>
+        <label>Update Risk to Medium</label>
+        <locationX>4802</locationX>
+        <locationY>755</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z04 Risk Class Medium</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>4 - Medium Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_2_of_Copy_4_of_Update_Risk_Class_and_Check_Rule</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>3746</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z09 Direct Block</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>5 - High Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_2_of_Update_Risk_Class_and_Check_Rule</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>2690</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z03 Risk Class Low</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>3 - Low Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_2_of_Update_Risk_to_Medium</name>
+        <label>Update Risk to High</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z05 Risk Class High</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>5 - High Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_3_of_Update_Risk_Class_and_Check_Rule</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>2954</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z04 Risk Class Medium</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>4 - Medium Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_4_of_Update_Risk_Class_and_Check_Rule</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>3218</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z05 Risk Class High</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>5 - High Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_5_of_Update_Risk_Class_and_Check_Rule</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>4010</locationX>
+        <locationY>863</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>celsrm__App_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Credit</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z04 Risk Class Medium</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>4 - Medium Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_6_of_Update_Risk_Class_and_Check_Rule</name>
+        <label>Copy 6 of Update Risk Class and Check Rule</label>
+        <locationX>2162</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z04 Risk Class Medium</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>4 - Medium Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Risk_Class_and_Check_Rule_1</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>578</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z03 Risk Class Low</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>3 - Low Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Risk_Class_and_Check_Rule_2</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>842</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z03 Risk Class Low</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>3 - Low Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Risk_Class_and_Check_Rule_3</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>1106</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z04 Risk Class Medium</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>4 - Medium Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Risk_Class_and_Check_Rule_4</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>1370</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z05 Risk Class High</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>5 - High Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Risk_Class_and_Check_Rule_5</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>1634</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z05 Risk Class High</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>5 - High Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Risk_Class_and_Check_Rule_6</name>
+        <label>Update Risk Class and Check Rule</label>
+        <locationX>1898</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z09 Direct Block</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>5 - High Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>996</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_Previous_Legal</targetReference>
+        </connector>
+        <filterFormula>AND( 
+  {!$Record.celsrm__App_Name__c} = &quot;Credit&quot;, 
+  ISPICKVAL({!$Record.celsrm__Credit_Group__c}, &quot;0003 - RCA - Regular Credit Account&quot;), 
+  {!$Record.celsrm__Credit_Segment__c} &lt;&gt; &quot;DPCO&quot;, 
+  ISBLANK({!$Record.ParentId}), 
+  OR( 
+    ISCHANGED({!$Record.celsrm__Credit_Group__c}), 
+    ISCHANGED({!$Record.celsrm__Check_Rule__c}), 
+    ISCHANGED({!$Record.celsrm__Risk_Class__c}), 
+    ISCHANGED({!$Record.Moody_s_Risk_Class__c}), 
+    ISCHANGED({!$Record.celsrm__Payment_Behaviour_Text__c}), 
+    ISCHANGED({!$Record.celsrm__Payment_Behaviour_Trend__c}),
+    ISCHANGED({!$Record.ParentId})
+  ) 
+)</filterFormula>
+        <object>Account</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

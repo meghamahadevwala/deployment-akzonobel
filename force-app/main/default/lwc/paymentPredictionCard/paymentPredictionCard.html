@@ -1,0 +1,36 @@
+<template>
+    <div class="insight-card insight-card-emerald">
+      <div class="insight-card__header">
+        <div class="insight-card__icon-wrap">
+          <lightning-icon icon-name="utility:trending" size="xx-small"></lightning-icon>
+        </div>
+        <div class="insight-card__title-wrap">
+          <span class="insight-card__tag">Prediction</span>
+          <h4 class="insight-card__title">Payment Prediction</h4>
+        </div>
+      </div>
+      <div class="insight-card__body">
+        <div class="insight-list">
+          <template for:each={predictions} for:item="pred">
+            <div key={pred.key} class="pred-item">
+              <div class="pred-header">
+                <lightning-icon icon-name="utility:event" size="xx-small" class="icon-emerald"></lightning-icon>
+                <span class="pred-date">{pred.dateFormatted}</span>
+              </div>
+              <div class="pred-grid">
+                <span class="pred-meta"><lightning-icon icon-name="utility:file" size="xx-small" class="icon-slate"></lightning-icon> {pred.invoiceCount} invoices</span>
+                <span class="pred-meta"><lightning-icon icon-name="utility:moneybag" size="xx-small" class="icon-slate"></lightning-icon> ${pred.totalK}k</span>
+              </div>
+              <div class="pred-bar-wrap">
+                <div class="pred-bar">
+                  <div class="pred-bar-fill" style={pred.barStyle}></div>
+                </div>
+                <span class="pred-pct">{pred.confidence}%</span>
+              </div>
+            </div>
+          </template>
+        </div>
+        <button type="button" class="know-more-btn" onclick={handleKnowMore}>Know More <lightning-icon icon-name="utility:chevronright" size="xx-small"></lightning-icon></button>
+      </div>
+    </div>
+  </template>

@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Update_Based_on_Moodys_Risk_Class_Mapping</name>
+        <label>Update Based on Moodys Risk Class Mapping</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>RiskClassCheckRuleMappingService</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>acc</name>
+            <value>
+                <elementReference>$Record</elementReference>
+                <inputConfiguratorMode>Resource</inputConfiguratorMode>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>accountRiskClass</name>
+            <value>
+                <elementReference>$Record.Moody_s_Risk_Class__c</elementReference>
+                <inputConfiguratorMode>Resource</inputConfiguratorMode>
+            </value>
+        </inputParameters>
+        <nameSegment>RiskClassCheckRuleMappingService</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>67.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Copy_1_of_Credit_Limit_Bucket</name>
+        <label>Credit Limit Bucket</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Credit_Limit_50K_EUR3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Calculated_Credit_Limit_Group_Currency__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>50000.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_2_of_Update_Risk_Class_and_Check_Rule_Medium</targetReference>
+            </connector>
+            <label>Credit Limit &gt; 50K EUR</label>
+        </rules>
+        <rules>
+            <name>Copy_1_of_Credit_Limit_50K_EUR</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Calculated_Credit_Limit_Group_Currency__c</leftValueReference>
+                <operator>LessThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>50000.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Risk_Class_and_Check_Rule_Low</targetReference>
+            </connector>
+            <label>Credit Limit &lt; 50K EUR</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Credit_Limit_Bucket</name>
+        <label>Credit Limit Bucket</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Credit_Limit_50K_EUR2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Calculated_Credit_Limit_Group_Currency__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>50000.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Update_Risk_Class_and_Check_Rule_Medium</targetReference>
+            </connector>
+            <label>Credit Limit &gt; 50K EUR</label>
+        </rules>
+        <rules>
+            <name>Credit_Limit_50K_EUR</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Calculated_Credit_Limit_Group_Currency__c</leftValueReference>
+                <operator>LessThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>50000.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Records_1</targetReference>
+            </connector>
+            <label>Credit Limit &lt; 50K EUR</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Has_Moodys_Information</name>
+        <label>Has Moodys Information</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Is_New_Account</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Moody_s_Risk_Class__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Based_on_Moodys_Risk_Class_Mapping</targetReference>
+            </connector>
+            <label>Moodys Info Available</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_New_Account</name>
+        <label>Is New Customer?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Existing_Customer</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>IsCreatedMoreThan3Months</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>No Data Available</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Credit_Limit_Bucket</targetReference>
+            </connector>
+            <label>Existing Customer</label>
+        </rules>
+        <rules>
+            <name>Outcome_1_of_Is_New_Account</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Payment_Behaviour_Text__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>No Data Available</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Credit_Limit_Bucket</targetReference>
+            </connector>
+            <label>New Customer</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Previous_Legal</name>
+        <label>Is Previous Legal?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Has_Moodys_Information</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Previous_Legal</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0004 - ALA - Legal Action</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0010 - AGY - Agency/Lawyer</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0011 - ATR - Atradius</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.celsrm__Credit_Group__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0016 - CAD - Cadex</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Records_5</targetReference>
+            </connector>
+            <label>Previous Legal</label>
+        </rules>
+    </decisions>
+    <description>Add Parent Account to blank validation</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>IsCreatedMoreThan3Months</name>
+        <dataType>Boolean</dataType>
+        <expression>TODAY() &gt; ADDMONTHS({!$Record.Creation_Date__c}, 3)</expression>
+    </formulas>
+    <interviewLabel>Risk Class and Check Rule DPCO {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Risk Class and Check Rule DPCO</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Copy_1_of_Update_Risk_Class_and_Check_Rule_Medium</name>
+        <label>Update Risk Class and Check Rule Low</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z03 Risk Class Low</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>3 - Low Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_2_of_Update_Risk_Class_and_Check_Rule_Medium</name>
+        <label>Update Risk Class and Check Rule Medium</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z04 Risk Class Medium</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>4 - Medium Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Records_1</name>
+        <label>Update Risk Class and Check Rule Low</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z03 Risk Class Low</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>3 - Low Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Records_5</name>
+        <label>Update Records 5</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z05 Risk Class High</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>5 - High Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Risk_Class_and_Check_Rule_Low</name>
+        <label>Update Risk Class and Check Rule Low</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>celsrm__Check_Rule__c</field>
+            <value>
+                <stringValue>Z03 Risk Class Low</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>celsrm__Risk_Class__c</field>
+            <value>
+                <stringValue>3 - Low Risk</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_Previous_Legal</targetReference>
+        </connector>
+        <filterFormula>AND(
+  {!$Record.celsrm__App_Name__c} = &quot;Credit&quot;,
+  ISPICKVAL(
+    {!$Record.celsrm__Credit_Group__c},
+    &quot;0003 - RCA - Regular Credit Account&quot;
+  ),
+  {!$Record.celsrm__Credit_Segment__c} = &quot;DPCO&quot;,
+  ISBLANK({!$Record.ParentId}),
+  OR(
+    ISCHANGED({!$Record.celsrm__Credit_Group__c}),
+    ISCHANGED({!$Record.celsrm__Check_Rule__c}),
+    ISCHANGED({!$Record.celsrm__Risk_Class__c}),
+    ISCHANGED({!$Record.Moody_s_Risk_Class__c}),
+    ISCHANGED({!$Record.ParentId})
+  )
+)</filterFormula>
+        <object>Account</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

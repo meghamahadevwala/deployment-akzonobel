@@ -1,0 +1,79 @@
+<!-- // << START - MM - FIN-9455 - Mass Dunning -> Replace custom placeholders and translations | Change controller from cSRMTreatmentPdfGenerator to TreatmentAttachmentGenerationController>> -->
+<apex:page controller="cTreatmentAttachmentGenerationController" applyHtmlTag="false" applyBodyTag="false" showHeader="false" renderAs="PDF" contentType="text/html;charset=UTF-8" cache="true"
+    expires="1" standardStylesheets="false" docType="html-5.0">
+    <html>
+    <head>
+       <!-- <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" /> -->
+        <style type="text/css" media="print">
+            <!-- << START - MM - FIN-10142 - Mass Dunning -> PDF attachment was rendering portrait; switch to landscape >> -->
+            @page {
+                size: landscape;
+                margin: 12mm 10mm 14mm 10mm;
+                @bottom-center {
+                    content: " Page : " counter(page) " of " counter(pages);
+                }
+            }
+            body {
+                margin: 0;
+                color: #1f2d3d;
+                font-family: Arial Unicode MS, Verdana, sans-serif;
+                font-size: 10px;
+            }
+            table {
+                width: 100%; 
+                border-collapse: collapse; 
+                border-spacing: 0; 
+                margin: 0; 
+            }
+            thead {
+                display: table-header-group;
+            }
+            tfoot {
+                display: table-row-group;
+            }
+            tr {
+                page-break-inside: avoid;
+            }
+            .pdf-attachment-content table.txSummaryTable {
+                -fs-table-paginate: paginate;
+                border: 1px solid #1f2d3d;
+            }
+            .pdf-attachment-content table.txSummaryTable thead {
+                display: table-header-group;
+            }
+            .pdf-attachment-content table.txSummaryTable tbody {
+                display: table-row-group;
+            }
+            .pdf-attachment-content table.txSummaryTable thead tr th {
+                font-weight: bold;
+                font-size: 12px;
+                background-color: black;
+                color: white;
+            }
+            .pdf-attachment-content table.txSummaryTable th,  
+            .pdf-attachment-content table.txSummaryTable td {
+                text-align: left;
+                border: 1px solid #1f2d3d;
+                padding: 3px;
+                margin: 0; 
+                vertical-align:top; 
+            }
+            .pdf-attachment-content table.txSummaryTable .rightAlign {
+                text-align: right;
+            }
+            <!-- << END - MM - FIN-10142 >> -->
+            body { font-family: Arial Unicode MS; }
+            font { font-family: Arial Unicode MS !important; }
+            .thright {border:1px solid gray;text-align:right;}
+            .thleft{border:1px solid gray;text-align:left;}
+            .tdright{text-align:right;border:solid 0.5px gray;white-space:nowrap;}
+            .tdleft{text-align:left;border:solid 0.5px gray;white-space:nowrap;}
+        </style>
+    </head>
+    <body>
+        <center>
+            <apex:outputText escape="false" value="{!attachmentBody}" style="font-size:11px;font-family:Arial Unicode MS!important;" />
+        </center>
+    </body>
+    </html>
+</apex:page>

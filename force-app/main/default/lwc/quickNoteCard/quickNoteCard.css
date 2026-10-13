@@ -1,0 +1,146 @@
+/* MetricCard override for compact padding */
+:host {
+  --metric-card-body-padding: 0.375rem 0.625rem;
+  display: block;
+  height: 100%;
+}
+
+.quick-note-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  height: 100%;
+  min-height: 0;
+}
+
+.note-input-wrap.quick-note-highlight {
+  border-radius: 0.375rem;
+  padding: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.note-input-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.note-input {
+  width: 100%;
+  min-height: 5.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.375rem;
+  font-size: 13px;
+  color: #706e6b;
+  border: none;
+  border-radius: 0.375rem;
+  resize: vertical;
+  outline: none;
+  line-height: 1.67;
+  font-weight: normal;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.note-input:focus {
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.quick-note-footer {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.latest-note-separator {
+  border-top: 1px solid #e2e8f0;
+  /* margin-top: 0.5rem; */
+  padding-top: 0.5rem;
+}
+
+.priority-dots {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.priority-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.priority-dot.dot-yellow {
+  background-color: #fef08a;
+}
+
+.priority-dot.dot-green {
+  background-color: #bbf7d0;
+}
+
+.priority-dot.dot-red {
+  background-color: #fecaca;
+}
+
+.priority-dot.dot-purple {
+  background-color: #e9d5ff;
+}
+
+.priority-dot.dot-white {
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+}
+
+.priority-dot:hover {
+  box-shadow: 0 0 0 1px #60a5fa;
+}
+
+.latest-note-display {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.latest-note-label {
+  font-size: 13px;
+  font-weight: bold;
+  color: #003c4d;
+}
+
+.latest-note-text {
+  font-size: 13px;
+  color: #706e6b;
+  font-weight: normal;
+  line-height: 1.67;
+  margin: 0.125rem 0 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.card-icon {
+  --sds-c-icon-color-foreground-default: #94a3b8;
+}
+
+.card-icon-btn {
+  cursor: pointer;
+}
+
+/* Maximize modal — matches gogAccountDetails sticky popup */
+.sticky-modal-header {
+  position: relative;
+  padding-right: 0;
+}
+
+.sticky-modal-title-item {
+  cursor: pointer;
+}
+
+.sticky-modal-title {
+  line-height: 1.46;
+  font-weight: 600;
+}
+
+.sticky-modal-close {
+  float: right;
+  padding-right: 0.5rem;
+}

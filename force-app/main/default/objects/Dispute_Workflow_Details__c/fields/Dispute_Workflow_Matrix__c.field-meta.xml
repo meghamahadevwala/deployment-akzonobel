@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dispute_Workflow_Matrix__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Dispute Workflow Matrix</label>
+    <referenceTo>celsrm__Dispute_Workflow_Matrix__c</referenceTo>
+    <relationshipLabel>Dispute Workflow Details (Dispute Workflow Matrix)</relationshipLabel>
+    <relationshipName>Dispute_Workflow_Details_Matrix</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

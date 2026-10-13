@@ -1,0 +1,22 @@
+.label-class {
+    padding-top: 0.75rem;
+    padding-right:1rem;
+    padding-bottom:0;
+    padding-left:1rem;
+}
+.border-class {
+    border-width: 1px;
+    border-color:rgb(201, 201, 201);
+    border-radius:0.25rem;
+    border-style: solid;
+}
+/* .tooltip {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+} */

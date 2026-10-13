@@ -1,0 +1,7 @@
+.srm-custom-iframe-container {
+    height: 77vh; 
+    background-color: white;
+    padding: 0.75rem; 
+    border: 1px solid #f3f3f3 ;
+    border-radius: 0.25rem;
+}

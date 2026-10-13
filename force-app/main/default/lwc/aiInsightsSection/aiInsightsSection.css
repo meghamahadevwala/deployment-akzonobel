@@ -1,0 +1,96 @@
+.ai-insights {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: rgba(248, 250, 252, 0.5);
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  padding: 0.75rem;
+}
+
+.ai-insights__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.625rem;
+  flex-shrink: 0;
+}
+
+.ai-insights__title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ai-insights__icon-wrap {
+  background: #f1f5f9;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-insights__icon-wrap lightning-icon {
+  --sds-c-icon-color-foreground-default: #475569;
+}
+
+.ai-insights__title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.ai-insights__subtitle-inline {
+  font-size: 0.625rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.ai-insights__subtitle {
+  font-size: 10px;
+  color: #64748b;
+  font-weight: 500;
+  margin: 0;
+}
+
+.ai-insights__scroll {
+  flex-grow: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.5rem;
+  padding-right: 0.25rem;
+}
+
+.ai-insights__scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ai-insights__scroll::-webkit-scrollbar-track {
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+.ai-insights__scroll::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+.ai-insights__scroll::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}
+
+.ai-insights__cards {
+  display: flex;
+  gap: 0.75rem;
+  height: 100%;
+  padding-right: 1rem;
+}
+
+.ai-insights__cards > * {
+  flex-shrink: 0;
+}

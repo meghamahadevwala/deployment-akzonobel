@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <logo>celonis_logo_1</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Configure screens, data service, dispute matrices, email services, etc</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Admin Configuration</label>
+    <navType>Standard</navType>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Transaction_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>celsrm__Transaction__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Administrator (AkzoNobel)</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Transaction_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>celsrm__Transaction__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Administrator (AkzoNobel)</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Transaction_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>celsrm__Transaction__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Transaction_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>celsrm__Transaction__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <tabs>celsrm__Screens__c</tabs>
+    <tabs>celsrm__Data_Service__c</tabs>
+    <tabs>Dispute_Configuration</tabs>
+    <tabs>celsrm__Dispute_Workflow_Matrix__c</tabs>
+    <tabs>Dispute_Reminder_Escalation_Matrix__c</tabs>
+    <tabs>Mailbox_Configuration</tabs>
+    <tabs>standard-File</tabs>
+    <tabs>AccountWoCreditSegment__c</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

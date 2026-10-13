@@ -1,0 +1,26 @@
+<template>
+  <c-metric-card>
+    <span slot="title">{label.agingBucket}</span>
+    <lightning-icon slot="icon" icon-name="utility:clock" size="xx-small" class="card-icon"></lightning-icon>
+    <div class="aging-content">
+      <div class="chart-wrap">
+        <svg class="donut-segments" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <g transform="rotate(-90 60 60)">
+            <template for:each={chartSegments} for:item="seg">
+              <circle key={seg.key} class="segment" class:segment_negative={seg.isNegative} cx="60" cy="60" r="44" fill="none" stroke={seg.color} stroke-width="22" stroke-dasharray={seg.dashArray} stroke-dashoffset={seg.dashOffset}></circle>
+            </template>
+          </g>
+        </svg>
+      </div>
+      <div class="legend">
+        <template for:each={bucketData} for:item="item">
+          <div key={item.key} class="legend-row">
+            <div class="legend-dot" style={item.dotStyle}></div>
+            <span class="legend-label">{item.name}</span>
+            <span class="legend-value" style={item.valueStyle}>{item.valueFormatted}</span>
+          </div>
+        </template>
+      </div>
+    </div>
+  </c-metric-card>
+</template>

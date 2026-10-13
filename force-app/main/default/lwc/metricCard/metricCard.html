@@ -1,0 +1,13 @@
+<template>
+  <div class="metric-card">
+    <div class="metric-card__header">
+      <h3 class="metric-card__title"><slot name="title">Metric</slot></h3>
+      <div class="metric-card__icon">
+        <slot name="icon"></slot>
+      </div>
+    </div>
+    <div class="metric-card__body">
+      <slot></slot>
+    </div>
+  </div>
+</template>

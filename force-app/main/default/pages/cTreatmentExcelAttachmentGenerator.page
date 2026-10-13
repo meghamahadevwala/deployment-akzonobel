@@ -1,0 +1,61 @@
+<!-- << START - MM - FIN-8174 - Dynamic translated headers based account local | For Treatment (Excel)>> -->
+<!-- // << START - MM - FIN-9455 - Mass Dunning -> Replace custom placeholders and translations >> -->
+<!-- <apex:page controller="cTreatmentExcelAttachmentController" showHeader="false" -->
+<apex:page controller="cTreatmentAttachmentGenerationController" showHeader="false"
+    sidebar="false" 
+    contentType="application/vnd.ms-excel"
+    cache="true" expires="1"  standardStylesheets="false">
+    <html xmlns:x="urn:schemas-microsoft-com:office:excel">
+<!-- // << END - MM - FIN-9455 - Mass Dunning - Replace custom placeholders and translations >> -->
+        <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+            <style type="text/css" media="print"> 
+                @page {
+                    /* Landscape orientation */
+                    /* size:'{!JSENCODE($Setup.celsrm__SRM_Configuration__c.celsrm__Statement_Mode__c)}';           */   
+                    size: landscape;      
+                    font-family: verdana;
+                    font-size:10px;
+                    
+                    @top-right {
+                        content: " Page : " counter(page) " of " counter(pages);
+                    }
+                }
+                
+                body{                 
+                    font-family: verdana;
+                    font-size:10px;
+                } 
+                 /* Start | FIN-8048 | Changed by Ravi | 30 July 2025  */
+                .thright {
+                    border:1px solid gray;
+                    text-align: right;
+                }  
+                .thleft{ 
+                    border: 1px solid gray;
+                    text-align: left;
+                }
+                .tdright {
+                    text-align:right;
+                    border: solid 0.5px gray;
+                    white-space:nowrap;
+                } 
+                .tdleft { 
+                    text-align:left;
+                    border: solid 0.5px gray;
+                    white-space:nowrap;
+                }
+                /* End | FIN-8048 | Changed by Ravi | 30 July 2025  */ 
+            </style>
+        </head>
+
+        <body>
+            <center>
+                <apex:outputText escape="false" value="{!attachmentBody}" style="font-size:13px; font-family: Arial Unicode MS !important;" />
+            </center>
+        </body>
+
+    </html>
+
+</apex:page>
+<!-- << END - MM - FIN-8174 - Dynamic translated headers based account local | For Treatment (Excel)>> -->

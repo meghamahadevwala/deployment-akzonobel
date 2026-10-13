@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Task</object>
+                <object>Account</object>
+                <object>celsrm__Celonis_Event__c</object>
+                <object>celsrm__Transaction__c</object>
+                <object>celsrm__Dispute__c</object>
+                <object>celsrm__Credit_Review__c</object>
+            </objects>
+            <property name="screenName" type="String" label="Screen Name" description="Set the screen name to log" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

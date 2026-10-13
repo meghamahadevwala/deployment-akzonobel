@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status_Values__c</fullName>
+    <description>Semicolon-separated list of dispute statuses to includ</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Open,InProgress,On Hold,Pending Information</inlineHelpText>
+    <label>Status Values</label>
+    <length>1000</length>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

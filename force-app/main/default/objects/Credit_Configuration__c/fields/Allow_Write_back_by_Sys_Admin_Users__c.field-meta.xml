@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allow_Write_back_by_Sys_Admin_Users__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Controls whether changes made by the System Administrator are written back to the source system (CFIN).
+
+For example, when a new account is created in CFIN and imported into Sailfin, the system may automatically update Profile Data or Segment Data. This setting determines whether those system-generated updates should be synchronized back to CFIN.</description>
+    <inlineHelpText>Controls whether changes made by the System Administrator are written back to the source system (CFIN).
+
+For example, when a new account is created in CFIN and imported into Sailfin, the system may automatically update Profile Data or Segment Data. This setting determines whether those system-generated updates should be synchronized back to CFIN.</inlineHelpText>
+    <label>Allow Write-back by Sys Admin Users?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

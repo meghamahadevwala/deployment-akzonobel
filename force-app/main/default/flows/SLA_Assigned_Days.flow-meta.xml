@@ -1,0 +1,1487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>ASC_SLA</name>
+        <label>ASC SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>ASC_5</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>100 Financial &amp; Invoicing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>400 Marketing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>500 Contact &amp; Service</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ASC_5_SLA</targetReference>
+            </connector>
+            <label>ASC 5</label>
+        </rules>
+        <rules>
+            <name>ASC_10</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>602 Color Documentation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>603 Color From Measurement</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>604 Gloss</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ASC_10_SLA</targetReference>
+            </connector>
+            <label>ASC 10</label>
+        </rules>
+        <rules>
+            <name>ASC_20</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>202 Equipment/Tools(non-paint)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ASC_20_SLA</targetReference>
+            </connector>
+            <label>ASC 20</label>
+        </rules>
+        <rules>
+            <name>ASC_30</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>300 Order Delivery</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ASC_30_SLA</targetReference>
+            </connector>
+            <label>ASC 30</label>
+        </rules>
+        <rules>
+            <name>ASC_50</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>201 During Application</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ASC_50_SLA</targetReference>
+            </connector>
+            <label>ASC 50</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>BU</name>
+        <label>BU</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>BU_ASC</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Business_Unit__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>BU ASC</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ASC_SLA</targetReference>
+            </connector>
+            <label>BU ASC</label>
+        </rules>
+        <rules>
+            <name>BU_MPY</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Business_Unit__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>BU MPY</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MPY_SLA</targetReference>
+            </connector>
+            <label>BU MPY</label>
+        </rules>
+        <rules>
+            <name>BU_ICO</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Business_Unit__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>BU ICO</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ICO_SLA</targetReference>
+            </connector>
+            <label>BU ICO</label>
+        </rules>
+        <rules>
+            <name>BU_Powder</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Business_Unit__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>BU Powder</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Reason_Code</targetReference>
+            </connector>
+            <label>BU Powder</label>
+        </rules>
+        <rules>
+            <name>DP_EMEA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Business_Unit__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DP EMEA</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>EMEA_SLA</targetReference>
+            </connector>
+            <label>DP EMEA</label>
+        </rules>
+        <rules>
+            <name>DP_SESA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Business_Unit__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DP SESA</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SESA_SLA</targetReference>
+            </connector>
+            <label>DP SESA</label>
+        </rules>
+        <rules>
+            <name>DP_CNA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Business_Unit__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DP CNA</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>CNA_SLA</targetReference>
+            </connector>
+            <label>DP CNA</label>
+        </rules>
+        <rules>
+            <name>DP_SAM</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Business_Unit__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DP SAM</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SAM_19_SLA</targetReference>
+            </connector>
+            <label>DP SAM</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>CNA_SLA</name>
+        <label>CNA SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>CNA_5</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>100 Financial &amp; Invoicing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>206 Product Documentation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>300 Order Delivery</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>400 Marketing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>500 Contact &amp; Service</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>CNA_5_SLA</targetReference>
+            </connector>
+            <label>CNA 5</label>
+        </rules>
+        <rules>
+            <name>CNA_10</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>600 Color</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>200 Product Quality</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>CNA_10_SLA</targetReference>
+            </connector>
+            <label>CNA 10</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>EMEA_SLA</name>
+        <label>EMEA SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>EMEA_5</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>100 Financial &amp; Invoicing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>302 Delivery Documentation &amp; Information</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>400 Marketing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>501 Advice &amp; Support</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>503 Stores</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>504 Website / e-commerce</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>EMEA_SLA_Day</targetReference>
+            </connector>
+            <label>EMEA 5</label>
+        </rules>
+        <rules>
+            <name>EMEA_7</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>301 Delivery Damaged</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>303 Delivery Quantity</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>304 Delivery Timing</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>EMEA_7_SLA</targetReference>
+            </connector>
+            <label>EMEA 7</label>
+        </rules>
+        <rules>
+            <name>EMEA_10</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>600 Color</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>200 Product Quality</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>EMEA_10_SLA</targetReference>
+            </connector>
+            <label>EMEA 10</label>
+        </rules>
+        <rules>
+            <name>EMEA_12</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>205 Pre Application</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>305 Wrong Product</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>EMEA_12_SLA</targetReference>
+            </connector>
+            <label>EMEA 12</label>
+        </rules>
+        <rules>
+            <name>EMEA_20</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>502 AkzoNobel Certified Painters</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>EMEA_20_SLA</targetReference>
+            </connector>
+            <label>EMEA 20</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>ICO_SLA</name>
+        <label>ICO SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>ICO_5</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>101 Cash Discount Deduction</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>102 Deducted Vendor Invoice</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>103 Incorrect Invoice Masterdata</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>104 Invoice not Received</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ICO_5_SLA</targetReference>
+            </connector>
+            <label>ICO 5</label>
+        </rules>
+        <rules>
+            <name>ICO_10</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>105 Payment In Transit</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>106 Pricing Error</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>107 Rebates</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>108 Short Payment</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>400 Marketing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>500 Contact &amp; Service</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ICO_10_SLA</targetReference>
+            </connector>
+            <label>ICO 10</label>
+        </rules>
+        <rules>
+            <name>ICO_30</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>300 Order Delivery</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ICO_30_SLA</targetReference>
+            </connector>
+            <label>ICO 30</label>
+        </rules>
+        <rules>
+            <name>ICO_60</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>200 Product Quality</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>600 Color</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ICO_60_SLA</targetReference>
+            </connector>
+            <label>ICO 60</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>MPY_SLA</name>
+        <label>MPY SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>MPY_5</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>101 Cash Discount Deduction</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>102 Deducted Vendor Invoice</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>103 Incorrect Invoice Masterdata</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>104 Invoice not Received</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>400 Marketing</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MPY_5_SLA</targetReference>
+            </connector>
+            <label>MPY 5</label>
+        </rules>
+        <rules>
+            <name>MPY_10</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>105 Payment In Transit</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>106 Pricing Error</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>107 Rebates</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>108 Short Payment</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>500 Contact &amp; Service</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MPY_10_SLA</targetReference>
+            </connector>
+            <label>MPY 10</label>
+        </rules>
+        <rules>
+            <name>MPY_30</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>300 Order Delivery</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MPY_30_SLA</targetReference>
+            </connector>
+            <label>MPY 30</label>
+        </rules>
+        <rules>
+            <name>MPY_40</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>400 Marketing</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MPY_40_SLA</targetReference>
+            </connector>
+            <label>MPY 40</label>
+        </rules>
+        <rules>
+            <name>MPY_60</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>200 Product Quality</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MPY_60_SLA</targetReference>
+            </connector>
+            <label>MPY 60</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Reason_Code</name>
+        <label>POW SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>POW_5</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>101 Cash Discount Deduction</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>102 Deducted Vendor Invoice</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>103 Incorrect Invoice Masterdata</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>104 Invoice not Received</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>400 Marketing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>500 Contact &amp; Service</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>POW_5_SLA</targetReference>
+            </connector>
+            <label>POW 5</label>
+        </rules>
+        <rules>
+            <name>POW_10</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>105 Payment In Transit</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>106 Pricing Error</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>107 Rebates</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>108 Short Payment</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>202 Equipment/Tools(non-paint)</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>206 Product Documentation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>600 Color</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>POW_10_SLA</targetReference>
+            </connector>
+            <label>POW 10</label>
+        </rules>
+        <rules>
+            <name>POW_25</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>302 Delivery Documentation &amp; Information</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>POW_25_SLA</targetReference>
+            </connector>
+            <label>POW 25</label>
+        </rules>
+        <rules>
+            <name>POW_30</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>203 Packaging &amp; Labeling</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>303 Delivery Quantity</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>POW_30_SLA</targetReference>
+            </connector>
+            <label>POW 30</label>
+        </rules>
+        <rules>
+            <name>POW_35</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>201 During Application</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>204 Post Application</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>205 Pre Application</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>207 Software</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>208 Trial Batch</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>301 Delivery Damaged</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>304 Delivery Timing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>305 Wrong Product</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>POW_35_SLA</targetReference>
+            </connector>
+            <label>POW 35</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>SESA_SLA</name>
+        <label>SESA SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>SESA_5</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>100 Financial &amp; Invoicing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>202 Equipment/Tools(non-paint)</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>203 Packaging &amp; Labeling</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>206 Product Documentation</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>300 Order Delivery</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>400 Marketing</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SESA_5_SLA</targetReference>
+            </connector>
+            <label>SESA 5</label>
+        </rules>
+        <rules>
+            <name>SESA_10</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>207 Software</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>208</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>500 Contact &amp; Service</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Dispute_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>600 Color</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SESA_10_SLA</targetReference>
+            </connector>
+            <label>SESA 10</label>
+        </rules>
+        <rules>
+            <name>SESA_30</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>201 During Application</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>204 Post Application</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.celsrm__Reason_Code__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>205 Pre Application</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SESA_30_SLA</targetReference>
+            </connector>
+            <label>SESA 30</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>SLA Day Assignment {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SLA Assigned Days</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>ASC_10_SLA</name>
+        <label>ASC 10 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>10.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>ASC_20_SLA</name>
+        <label>ASC 20 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>20.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>ASC_30_SLA</name>
+        <label>ASC 30 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>30.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>ASC_50_SLA</name>
+        <label>ASC 50 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>50.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>ASC_5_SLA</name>
+        <label>ASC 5 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>5.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>CNA_10_SLA</name>
+        <label>CNA 10 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>10.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>CNA_5_SLA</name>
+        <label>CNA 5 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>5.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>EMEA_10_SLA</name>
+        <label>EMEA 10 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>10.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>EMEA_12_SLA</name>
+        <label>EMEA 12 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>12.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>EMEA_20_SLA</name>
+        <label>EMEA 20 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>20.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>EMEA_7_SLA</name>
+        <label>EMEA 7 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>7.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>EMEA_SLA_Day</name>
+        <label>EMEA 5 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>5.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>ICO_10_SLA</name>
+        <label>ICO 10 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>10.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>ICO_30_SLA</name>
+        <label>ICO 30 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>30.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>ICO_5_SLA</name>
+        <label>ICO 5 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>5.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>ICO_60_SLA</name>
+        <label>ICO 60 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>60.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>MPY_10_SLA</name>
+        <label>MPY 10 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>10.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>MPY_30_SLA</name>
+        <label>MPY 30 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>30.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>MPY_40_SLA</name>
+        <label>MPY 40 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>40.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>MPY_5_SLA</name>
+        <label>MPY 5 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>5.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>MPY_60_SLA</name>
+        <label>MPY 60 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>60.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>POW_10_SLA</name>
+        <label>POW 10 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>10.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>POW_25_SLA</name>
+        <label>POW 25 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>25.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>POW_30_SLA</name>
+        <label>POW 30 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>30.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>POW_35_SLA</name>
+        <label>POW 35 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>35.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>POW_5_SLA</name>
+        <label>POW 5 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>5.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>SAM_19_SLA</name>
+        <label>SAM 19 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>19.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>SESA_10_SLA</name>
+        <label>SESA 10 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>10.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>SESA_30_SLA</name>
+        <label>SESA 30 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>30.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>SESA_5_SLA</name>
+        <label>SESA 5 SLA</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Dispute_SLA_Days__c</field>
+            <value>
+                <numberValue>5.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>BU</targetReference>
+        </connector>
+        <object>celsrm__Dispute__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

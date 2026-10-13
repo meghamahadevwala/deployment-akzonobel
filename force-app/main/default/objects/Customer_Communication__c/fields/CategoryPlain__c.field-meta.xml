@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CategoryPlain__c</fullName>
+    <label>CategoryPlain</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Call</fullName>
+                <default>false</default>
+                <label>Call</label>
+            </value>
+            <value>
+                <fullName>Contact Update</fullName>
+                <default>false</default>
+                <label>Contact Update</label>
+            </value>
+            <value>
+                <fullName>Dispute</fullName>
+                <default>false</default>
+                <label>Dispute</label>
+            </value>
+            <value>
+                <fullName>Out of office</fullName>
+                <default>false</default>
+                <label>Out of office</label>
+            </value>
+            <value>
+                <fullName>Promised</fullName>
+                <default>false</default>
+                <label>Promised</label>
+            </value>
+            <value>
+                <fullName>Statement</fullName>
+                <default>false</default>
+                <label>Statement</label>
+            </value>
+            <value>
+                <fullName>Undelivered</fullName>
+                <default>false</default>
+                <label>Undelivered</label>
+            </value>
+            <value>
+                <fullName>Paid by Customer</fullName>
+                <default>false</default>
+                <label>Paid by Customer</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

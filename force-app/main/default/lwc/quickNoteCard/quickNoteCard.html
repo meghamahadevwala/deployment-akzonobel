@@ -1,0 +1,54 @@
+<template>
+  <c-metric-card>
+    <span slot="title">{label.quickNote}</span>
+    <lightning-icon slot="icon" icon-name="utility:expand_alt" size="xx-small" class="card-icon card-icon-btn" onclick={handleMaximize} title="Maximize"></lightning-icon>
+    <div class="quick-note-body">
+      <div class="note-input-wrap quick-note-highlight">
+        <textarea class="note-input" style={noteInputStyle} placeholder={label.addNotePlaceholder} rows="3" oninput={handleNoteInput} onblur={handleSaveNote}>{stickyNotes}</textarea>
+      </div>
+      <div class="quick-note-footer">
+        <div class="priority-dots">
+          <template for:each={priorityColors} for:item="p">
+            <button key={p.key} type="button" class={p.class} data-color={p.style} onclick={handleColorClick} title="Note color"></button>
+          </template>
+        </div>
+      </div>
+      <div class="latest-note-separator"></div>
+      <div class="latest-note-display">
+        <span class="latest-note-label">{label.latestNote}</span>
+        <p class="latest-note-text">{latestNotes}</p>
+      </div>
+    </div>
+  </c-metric-card>
+  <template if:true={showMaxModal}>
+    <section role="dialog" tabindex="-1" aria-labelledby="sticky-modal-heading" aria-modal="true" class="slds-modal slds-fade-in-open">
+      <div>
+        <div class="slds-modal__container">
+          <header class="slds-docked-composer__header sticky-modal-header">
+            <lightning-layout>
+              <lightning-layout-item size="10" class="slds-truncate sticky-modal-title-item">
+                <h3 class="sticky-modal-title" id="sticky-modal-heading">{label.latestNoteModalTitle}</h3>
+              </lightning-layout-item>
+              <lightning-layout-item size="2">
+                <button class="slds-button slds-button_icon slds-button_icon sticky-modal-close" title="Close" onclick={handleCloseMaxModal}>
+                  <lightning-icon icon-name="utility:close" size="x-small"></lightning-icon>
+                  <span class="slds-assistive-text">{label.close}</span>
+                </button>
+              </lightning-layout-item>
+            </lightning-layout>
+          </header>
+          <div class="slds-modal__content slds-p-around_medium">
+            <div>
+              <textarea rows="20" maxlength="100000" class="slds-textarea" onchange={handleModalNoteChange}>{stickyNotes}</textarea>
+            </div>
+          </div>
+          <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick={handleCloseMaxModal}>{label.cancel}</button>
+            <button class="slds-button slds-button_brand" onclick={handleSaveMaxModal}>{label.save}</button>
+          </footer>
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>

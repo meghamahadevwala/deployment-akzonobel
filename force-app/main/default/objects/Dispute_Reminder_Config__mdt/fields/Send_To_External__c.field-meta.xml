@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_To_External__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Whether to send reminders to external users</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>When checked, emails will be sent to External_Resolver_Email__c</inlineHelpText>
+    <label>Send_To_External</label>
+    <type>Checkbox</type>
+</CustomField>

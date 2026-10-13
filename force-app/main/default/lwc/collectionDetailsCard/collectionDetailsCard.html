@@ -1,0 +1,17 @@
+<template>
+  <c-metric-card>
+    <span slot="title">{label.collectionDetails}</span>
+    <lightning-icon slot="icon" icon-name="utility:list" size="xx-small" class="card-icon"></lightning-icon>
+    <div class="rows">
+      <template for:each={details} for:item="row">
+        <div key={row.key} class="row">
+          <div class="row-label">
+            <lightning-icon icon-name={row.iconName} size="xx-small" class={row.iconClass}></lightning-icon>
+            <span>{row.label}</span>
+          </div>
+          <span class="row-value" class:highlight={row.isHighlight}>{row.value}</span>
+        </div>
+      </template>
+    </div>
+  </c-metric-card>
+</template>
